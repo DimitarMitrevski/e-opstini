@@ -4,12 +4,10 @@
     <navbar />
     <b-row>
       <b-col cols="2">
-        <municipality-list :data="opstini" @chosen-mun="selectedMun" />
+        <municipality-list :data="opstini" @chosen-mun="selectedMunList" />
       </b-col>
       <b-col cols="10">
-        <div style="height: 100vh; display: flex; justify-content: center; align-items: center">
-          <mapa :selectedpath="selectedPath" :data="opstini" :sidebar="openSidebar" @selected-municipality="selectedMun" />
-        </div>
+        <mapa :selectedpath="selectedPath" :data="opstini" :sidebar="openSidebar" @selected-municipality="selectedMun" />
       </b-col>
     </b-row>
   </div>
@@ -372,7 +370,16 @@ export default {
     selectedMun(payload){
       this.sideCnt = payload;
       this.selectedPath = payload.name;
+    },
+    selectedMunList(payload){
+      this.sideCnt = payload;
+      this.selectedPath = payload.name;
       if(this.openSidebar==false) this.$root.$emit('bv::toggle::collapse', 'sidebar-right');
+    }
+  },
+  watch:{
+    openSidebar (oldVal, newVal) {
+      if(newVal==true) this.selectedPath = null;
     }
   }
 }

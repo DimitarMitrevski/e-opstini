@@ -1,9 +1,7 @@
 <template>
 <div class="mapa-main">
-  <h2><span class="text-info">Избрана општина:</span> {{ title }}</h2>
-  <b-button v-b-toggle.sidebar-right>djsaiojdios</b-button>
   <div class="mapa-wrap">
-      <svg baseprofile="tiny" fill="#7c7c7c" height="791" stroke="beige" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" version="1.2" viewbox="0 0 1000 791" width="1000" xmlns="http://www.w3.org/2000/svg">
+      <svg class="map-svg"  fill="#7c7c7c" stroke="beige" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewbox="0 0 1000 791" xmlns="http://www.w3.org/2000/svg">
         <path 
             v-for="(opstina, idx) in data" :key="idx" 
             v-b-tooltip.hover :title="'Општина ' + opstina.name" 
@@ -19,6 +17,7 @@
         </circle>
       </svg>
   </div>
+  <h4 class="text-center"><span class="text-info">Избрана општина:</span> {{ title }}</h4>
 </div>
   
 </template>
@@ -27,7 +26,7 @@
 export default {
   data () {
     return{
-      title: 'nk',
+      title: 'немате избрано општина',
       selected: null,
     }
   },
@@ -54,8 +53,9 @@ export default {
           this.selectedpath = null;
           this.title = event.currentTarget.getAttribute('name');
           event.target.classList.toggle('active');
-          if(!this.sidebar) this.$root.$emit('bv::toggle::collapse', 'sidebar-right');
-          var info = this.data.find(o => o.name === event.currentTarget.getAttribute('name').toString());
+          if(!this.sidebar || event.target.getAttribute('class') !== 'active') 
+            this.$root.$emit('bv::toggle::collapse', 'sidebar-right');
+          var info = this.data.find(o => o.name === this.title);
           this.$emit('selected-municipality', info);
       }
   }
@@ -67,13 +67,19 @@ export default {
   background: beige;
   padding: 1rem;
   width: 100%;
-  height: 100%;
+  height: calc(100vh - 58px);
+  position: absolute;
+  top: 0;
 }
 .mapa-wrap {
   position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+.map-svg {
+  width: 60%;
+  height: auto;
 }
 .mapa-wrap path {
   fill: #17a2b8;
