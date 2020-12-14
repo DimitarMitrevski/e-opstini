@@ -197,34 +197,16 @@ Password must - Have at least 8 characters - Contain characters from at least 3 
       evt.preventDefault()
       const tip1 = this.tip == 'user' ? 'Users' : 'Admins'
       const contactTel = this.selected + this.form.contactTel
-      await db.collection(tip1).add({
-        adress: this.form.adress,
+      const forma = {
         adress: this.form.adress,
         city: this.form.city,
         contactTel: contactTel,
         email: this.form.email,
         imePrezime: this.form.name,
         password: this.form.password,
-      })
-      const email = this.form.email
-      const password = this.form.password
-      firebase
-        .auth()
-        .createUserWithEmailAndPassword(email, password)
-        .then((user) => {
-          var usr = firebase.auth().currentUser
-          usr
-            .sendEmailVerification()
-            .then(function () {
-              this.$router.push('/users')
-            })
-            .catch(function (error) {})
-        })
-        .catch((error) => {
-          var errorCode = error.code
-          var errorMessage = error.message
-        }),
-        this.onReset(evt)
+      }
+      this.$store.dispatch('users/signUp', forma)
+      this.onReset(evt)
     },
 
     onReset(evt) {

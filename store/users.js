@@ -15,15 +15,10 @@ export const actions = {
   addUser(state, payload) {
     state.commit('add', payload, { root: true, namespaced: true })
   },
-  async signUp(payload) {
-    await db.collection('Users').add({
-      adress: payload.adress,
-      city: payload.city,
-      contactTel: payload.contactTel,
-      email: payload.email,
-      imePrezime: payload.name,
-      password: payload.password,
-    })
+  async signUp(state, payload) {
+    await db.collection('Users').add(payload)
+    const email = payload.email
+    const password = payload.password
     firebase
       .auth()
       .createUserWithEmailAndPassword(email, password)
