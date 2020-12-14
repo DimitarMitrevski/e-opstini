@@ -2,18 +2,27 @@ import { db } from '~/plugins/firebase'
 import firebase from '~/plugins/firebase'
 require('firebase/auth')
 
-export const store = () => ({})
+export const state = () => ({
+  userInfo: {},
+})
 
-export const muatations = {}
+export const mutations = {
+  add(state, payload) {
+    state.userInfo = payload
+  },
+}
 export const actions = {
-  async signUp(adress, city, contactTel, email, imePrezime, password) {
+  addUser(state, payload) {
+    state.commit('add', payload, { root: true, namespaced: true })
+  },
+  async signUp(payload) {
     await db.collection('Users').add({
-      adress: adress,
-      city: city,
-      contactTel: contactTel,
-      email: email,
-      imePrezime: imePrezime,
-      password: password,
+      adress: payload.adress,
+      city: payload.city,
+      contactTel: payload.contactTel,
+      email: payload.email,
+      imePrezime: payload.name,
+      password: payload.password,
     })
     firebase
       .auth()

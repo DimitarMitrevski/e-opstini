@@ -186,25 +186,45 @@ export default {
 Password must - Have at least 8 characters - Contain characters from at least 3 of the following categories: - English uppercase letters (A-Z) - English lowercase letters (a-z) - numbers (0-9) - Non-alphanumeric symbols (e.g.: !, #, $, %, Space) - Unicode characters */
         phoneReg: /^\d{8}$/,
       },
-      userInfo: [],
+      userInfo: {},
       show: true,
       selected: '+389',
       options: [{ value: '+389', text: '+389' }],
     }
   },
   methods: {
-    onSubmit(evt) {
+    async onSubmit(evt) {
       evt.preventDefault()
       const tip1 = this.tip == 'user' ? 'Users' : 'Admins'
       const contactTel = this.selected + this.form.contactTel
-      this.userInfo['adress'] = this.form.adress
-      this.userInfo['city'] = this.form.city
-      this.userInfo['contactTel'] = this.form.contactTel
-      this.userInfo['email'] = this.form.email
-      this.userInfo['imePrezime'] = this.form.name
-      this.userInfo['password'] = this.form.password
-      this.$store.dispatch('users/signUp', this.userInfo)
-      this.onReset(evt)
+      await db.collection(tip1).add({
+        adress: this.form.adress,
+        adress: this.form.adress,
+        city: this.form.city,
+        contactTel: contactTel,
+        email: this.form.email,
+        imePrezime: this.form.name,
+        password: this.form.password,
+      })
+      const email = this.form.email
+      const password = this.form.password
+      firebase
+        .auth()
+        .createUserWithEmailAndPassword(email, password)
+        .then((user) => {
+          var usr = firebase.auth().currentUser
+          usr
+            .sendEmailVerification()
+            .then(function () {
+              this.$router.push('/users')
+            })
+            .catch(function (error) {})
+        })
+        .catch((error) => {
+          var errorCode = error.code
+          var errorMessage = error.message
+        }),
+        this.onReset(evt)
     },
 
     onReset(evt) {
