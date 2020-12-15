@@ -1,5 +1,6 @@
 <template>
-  <div class="userProfileCont">
+  <div class="adminProfileCont">
+    <PostPopUp :post="post" v-on:close-modal="post = false" />
     <b-container fluid class="profileTab">
       <b-row align-v="center" id="profile">
         <b-col cols="7">
@@ -13,16 +14,20 @@
               </div>
             </b-col>
             <b-col cols="8">
-              <h1>{{ userDatas.imePrezime }}</h1>
-              <p>Адреса: {{ userDatas.adress }}</p>
-              <p>Место на живеење: {{ userDatas.city }}</p>
-              <p>Број на телефон: {{ userDatas.contactTel }}</p>
+              <h1>{{ datas.imePrezime }}</h1>
+              <p>Адреса: {{ datas.adress }}</p>
+              <p>Место на живеење: {{ datas.city }}</p>
+              <p>Број на телефон: {{ datas.contactTel }}</p>
             </b-col>
           </b-row>
         </b-col>
         <b-col>
-          <div class="block"></div>
-          <h3>Разгледај Новости за Општина Битола</h3>
+          <div class="block">
+            <button class="post" @click="post = true">Објави Пост</button>
+          </div>
+          <a href="/admins/createSektorAdmin"
+            ><h3>Креирај Нов Админ на Сектор</h3></a
+          >
         </b-col>
       </b-row>
     </b-container>
@@ -38,21 +43,22 @@
 </template>
 <script>
 export default {
-  name: 'profile',
+  name: 'adminProfile',
   data() {
     return {
-      userDatas: [],
+      datas: {},
+      post: false,
     }
   },
   async asyncData({ store }) {
-    await store.dispatch('users/getUser', 'dv6sRkEf5KN5jVVPDZ2B')
-    const userDatas = store.state.users.userInfo
-    return { userDatas: userDatas }
+    await store.dispatch('admins/getUser', '2bETKVeTlVNINHciiLP6')
+    const datas = await store.state.admins.adminInfo
+    return { datas: datas }
   },
 }
 </script>
 <style scoped>
-.userProfileCont {
+.adminProfileCont {
   width: 100vw;
   background: #b5b5b5;
 }
@@ -69,7 +75,19 @@ export default {
 .block {
   width: 25vw;
   height: 10vw;
-  background: darkgray;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #efefef;
+  border-radius: 20px;
+}
+.post {
+  width: 10vw;
+  height: 3vw;
+  border: none;
+  border-radius: 10px;
+  color: white;
+  background: #54b4c9;
 }
 .News {
   height: 60vh;

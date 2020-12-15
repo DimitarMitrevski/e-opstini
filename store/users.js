@@ -7,14 +7,11 @@ export const state = () => ({
 })
 
 export const mutations = {
-  add(state, payload) {
+  getInfo(state, payload) {
     state.userInfo = payload
   },
 }
 export const actions = {
-  addUser(state, payload) {
-    state.commit('add', payload, { root: true, namespaced: true })
-  },
   async signUp(state, payload) {
     await db.collection('Users').add(payload)
     const email = payload.email
@@ -34,6 +31,17 @@ export const actions = {
       .catch((error) => {
         var errorCode = error.code
         var errorMessage = error.message
+      })
+  },
+  async getUser(state, payload) {
+    await db
+      .collection('Users')
+      .doc(payload)
+      .get()
+      .then(function (doc) {
+        if (doc.exists) {
+          state.commit('getInfo', doc.data())
+        }
       })
   },
 }
