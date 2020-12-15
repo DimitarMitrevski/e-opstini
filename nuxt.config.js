@@ -28,6 +28,10 @@ export default {
     'bootstrap-vue/nuxt',
   ],
 
+  bootstrapVue: {
+    icons: true
+  },
+
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {},
 }

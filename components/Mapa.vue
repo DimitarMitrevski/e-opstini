@@ -1,7 +1,7 @@
 <template>
 <div class="mapa-main">
   <div class="mapa-wrap">
-      <svg class="map-svg"  fill="#7c7c7c" stroke="beige" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewbox="0 0 1000 791" xmlns="http://www.w3.org/2000/svg">
+      <svg class="map-svg"  fill="#7c7c7c" stroke="#f4f4d5" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewbox="0 0 1000 791" xmlns="http://www.w3.org/2000/svg">
         <path 
             v-for="(opstina, idx) in data" :key="idx" 
             v-b-tooltip.hover :title="'Општина ' + opstina.name" 
@@ -16,8 +16,8 @@
         <circle cx="804.3" cy="256.9" id="2">
         </circle>
       </svg>
+      <h4 class="text-center"><span class="text-info">Избрана општина:</span> {{ title }}</h4>
   </div>
-  <h4 class="text-center"><span class="text-info">Избрана општина:</span> {{ title }}</h4>
 </div>
   
 </template>
@@ -46,6 +46,9 @@ export default {
   watch: {
     selectedpath(oldVal, newVal) {
       this.selected = null;
+      if(this.selected) this.title = this.selected;
+      if(this.selectedpath) this.title = this.selectedpath;
+      if(!this.selected && !this.selectedpath) this.title = 'немате избрано општина';
     }
   },
   methods: {
@@ -64,7 +67,7 @@ export default {
 
 <style>
 .mapa-main {
-  background: beige;
+  background: #f4f4d5;
   padding: 1rem;
   width: 100%;
   height: calc(100vh - 58px);
@@ -73,16 +76,24 @@ export default {
 }
 .mapa-wrap {
   position: relative;
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
+}
+.mapa-wrap h4 {
+  padding: 8px;
+  border-radius: 4px;
+  background: #fff;
+  margin-top: 1rem;
 }
 .map-svg {
   width: 60%;
   height: auto;
 }
 .mapa-wrap path {
-  fill: #f9ae5e;
+  fill: #f9c55e;
   cursor: pointer;
   transition: all .15s ease-in-out;
 }
