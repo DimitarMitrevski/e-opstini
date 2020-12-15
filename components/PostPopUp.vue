@@ -6,7 +6,7 @@
         style="
           position: fixed;
           z-index: 103;
-          top: 5%;
+          top: 25%;
           right: 25%;
           font-size: 2.5vw;
         "
@@ -16,7 +16,7 @@
       <b-form-textarea
         id="input-group-1"
         :label="'Внеси Текст за вашиот пост'"
-        label-for="input-2"
+        label-for="input-group-1"
       >
       </b-form-textarea>
     </div>
@@ -37,28 +37,36 @@ export default {
   justify-content: center;
   align-items: center;
   position: fixed;
+  pointer-events: none;
   margin: 0 auto;
-  z-index: 6;
+  z-index: 103;
 }
 .popUp {
   position: fixed;
-  width: 30vw;
-  height: 40vh;
+  width: 50vw;
+  height: 60vh;
   top: 50;
   display: flex;
   justify-content: center;
-  border-radius: 15px;
+  border-radius: 35px;
   align-items: center;
   background: white;
+  pointer-events: auto;
   margin: 0 auto;
-  z-index: 6;
+  z-index: 103;
 }
 .darken {
   width: 100vw;
   height: 100vh;
+  top: -0%;
   position: fixed;
   background: black;
   opacity: 0.7;
-  z-index: 4;
+  z-index: 100;
+}
+#input-group-1 {
+  color: black;
+  width: 30vw;
+  height: 30vh;
 }
 </style>

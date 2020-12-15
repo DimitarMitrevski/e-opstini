@@ -1,59 +1,75 @@
 <template>
-  <div class="adminProfileCont">
+  <div>
     <PostPopUp :post="post" v-on:close-modal="post = false" />
-    <b-container fluid class="profileTab">
-      <b-row align-v="center" id="profile">
-        <b-col cols="7">
-          <b-row>
-            <b-col cols="2">
-              <div id="circle">
-                <img
-                  src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7c/User_font_awesome.svg/1200px-User_font_awesome.svg.png"
-                  width="100vw"
-                />
-              </div>
-            </b-col>
-            <b-col cols="8">
-              <h1>{{ datas.imePrezime }}</h1>
-              <p>Адреса: {{ datas.adress }}</p>
-              <p>Место на живеење: {{ datas.city }}</p>
-              <p>Број на телефон: {{ datas.contactTel }}</p>
-            </b-col>
-          </b-row>
-        </b-col>
+    <div class="adminProfileCont">
+      <div class="darken" v-if="post"></div>
+      <b-container fluid class="profileTab">
+        <b-row align-v="center" id="profile">
+          <b-col cols="7">
+            <b-row>
+              <b-col cols="2">
+                <div id="circle">
+                  <img
+                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7c/User_font_awesome.svg/1200px-User_font_awesome.svg.png"
+                    width="100vw"
+                  />
+                </div>
+              </b-col>
+              <b-col cols="8">
+                <h1>{{ datas.imePrezime }}</h1>
+                <p>Адреса: {{ datas.adress }}</p>
+                <p>Место на живеење: {{ datas.city }}</p>
+                <p>Број на телефон: {{ datas.contactTel }}</p>
+              </b-col>
+            </b-row>
+          </b-col>
+          <b-col>
+            <div class="block">
+              <button class="post" @click="post = true">Објави Пост</button>
+            </div>
+            <a href="/admins/createSektorAdmin"
+              ><h3>Креирај Нов Админ на Сектор</h3></a
+            >
+          </b-col>
+        </b-row>
+      </b-container>
+      <b-row class="News" align-v="center">
+        <b-col><div id="bigBlock"></div> </b-col>
         <b-col>
-          <div class="block">
-            <button class="post" @click="post = true">Објави Пост</button>
-          </div>
-          <a href="/admins/createSektorAdmin"
-            ><h3>Креирај Нов Админ на Сектор</h3></a
-          >
+          <div class="rects">{{ dataFire }}</div>
+          <div class="rects"></div>
+          <div class="rects"></div>
         </b-col>
       </b-row>
-    </b-container>
-    <b-row class="News" align-v="center">
-      <b-col><div id="bigBlock"></div> </b-col>
-      <b-col>
-        <div class="rects"></div>
-        <div class="rects"></div>
-        <div class="rects"></div>
-      </b-col>
-    </b-row>
+    </div>
   </div>
 </template>
 <script>
+import { db } from '~/plugins/firebase'
+import firebase from '~/plugins/firebase'
+require('firebase/auth')
 export default {
   name: 'adminProfile',
   data() {
     return {
       datas: {},
+      dataFire: {},
       post: false,
     }
   },
-  async asyncData({ store }) {
-    await store.dispatch('admins/getUser', '2bETKVeTlVNINHciiLP6')
-    const datas = await store.state.admins.adminInfo
-    return { datas: datas }
+  asyncData({ store }) {
+    store.dispatch('admins/getUser', '2bETKVeTlVNINHciiLP6')
+    const datas = store.state.admins.adminInfo
+    firebase
+      .database()
+      .ref()
+      .child('budzet2020/99099')
+      .once('value')
+      .then((snapshot) => {
+        console.log(snapshot.val())
+        this.dataFire = snapshot.val()
+        return { dataFire: snapshot.val(), datas: datas }
+      })
   },
 }
 </script>
@@ -61,6 +77,7 @@ export default {
 .adminProfileCont {
   width: 100vw;
   background: #b5b5b5;
+  z-index: 104;
 }
 .profileTab {
   width: 100vw;
