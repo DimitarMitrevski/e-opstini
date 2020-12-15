@@ -4,7 +4,7 @@ require('firebase/auth')
 
 export const store = () => ({})
 
-export const muatations = {}
+export const mutations = {}
 export const actions = {
   async signUp(adress, city, contactTel, email, imePrezime, password) {
     await db.collection('Users').add({
@@ -25,7 +25,7 @@ export const actions = {
           .then(function () {
             this.$router.push('/users')
           })
-          .catch(function (error) {})
+          .catch(function (error) { })
       })
       .catch((error) => {
         var errorCode = error.code
