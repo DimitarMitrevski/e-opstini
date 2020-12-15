@@ -3,6 +3,8 @@ import firebase from 'firebase'
 var config = {
   apiKey: 'AIzaSyCgMUTSfkEgNQcACdiVryCzGxxfT4tbPfQ',
   authDomain: 'e-opstini.firebaseapp.com',
+  databaseURL:
+    'https://e-opstini-default-rtdb.europe-west1.firebasedatabase.app',
   projectId: 'e-opstini',
   storageBucket: 'e-opstini.appspot.com',
   messagingSenderId: '156574750669',
@@ -14,4 +16,11 @@ if (!firebase.apps.length) {
   app = firebase.initializeApp(config)
 }
 export const db = firebase.firestore()
+// var ref = firebase.database().ref('budzet2020')
+// ref.once('value', function (snapshot) {
+//   var data = snapshot.val()
+//   for (let i in data) {
+//     console.log(data[1])
+//   }
+// })
 export default firebase

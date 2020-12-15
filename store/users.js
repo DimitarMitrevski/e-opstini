@@ -2,19 +2,21 @@ import { db } from '~/plugins/firebase'
 import firebase from '~/plugins/firebase'
 require('firebase/auth')
 
-export const store = () => ({})
+export const state = () => ({
+  userInfo: {},
+})
 
-export const mutations = {}
+export const mutations = {
+  getInfo(state, payload) {
+    state.userInfo = payload
+  },
+}
+
 export const actions = {
-  async signUp(adress, city, contactTel, email, imePrezime, password) {
-    await db.collection('Users').add({
-      adress: adress,
-      city: city,
-      contactTel: contactTel,
-      email: email,
-      imePrezime: imePrezime,
-      password: password,
-    })
+  async signUp(state, payload) {
+    await db.collection('Users').add(payload)
+    const email = payload.email
+    const password = payload.password
     firebase
       .auth()
       .createUserWithEmailAndPassword(email, password)
@@ -30,6 +32,17 @@ export const actions = {
       .catch((error) => {
         var errorCode = error.code
         var errorMessage = error.message
+      })
+  },
+  async getUser(state, payload) {
+    await db
+      .collection('Users')
+      .doc(payload)
+      .get()
+      .then(function (doc) {
+        if (doc.exists) {
+          state.commit('getInfo', doc.data())
+        }
       })
   },
 }
