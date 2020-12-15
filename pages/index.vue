@@ -1,7 +1,6 @@
 <template>
   <div class="main-wrap">
     <sidebar-info :content="sideCnt" @sidebar-shown="sidebarVisible" @sidebar-hidden="sidebarHidden" />
-    <navbar />
     <b-row>
       <b-col cols="2">
         <municipality-list :data="opstini" @chosen-mun="selectedMunList" />
@@ -18,7 +17,7 @@ export default {
   data(){
     return{
       openSidebar: false,
-      sideCnt: null,
+      sideCnt: {},
       selectedPath: null,
       opstini: [
         {
@@ -374,7 +373,7 @@ export default {
     selectedMunList(payload){
       this.sideCnt = payload;
       this.selectedPath = payload.name;
-      if(this.openSidebar==false) this.$root.$emit('bv::toggle::collapse', 'sidebar-right');
+      if(!this.openSidebar) this.$root.$emit('bv::toggle::collapse', 'sidebar-right');
     }
   },
   watch:{
@@ -386,10 +385,6 @@ export default {
 </script>
 
 <style>
-body {
-  overflow-x: hidden;
-  overflow-y: auto;
-}
 .main-wrap [class^="col-"] {
   padding: 0
 }

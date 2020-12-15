@@ -43,5 +43,5 @@ export default {
 </script>
 
 <style>
-.main-wrap nav { z-index: 2; }
+.navbar { z-index: 2; }
 </style>

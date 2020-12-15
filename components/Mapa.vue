@@ -82,14 +82,14 @@ export default {
   height: auto;
 }
 .mapa-wrap path {
-  fill: #17a2b8;
+  fill: #f9ae5e;
   cursor: pointer;
   transition: all .15s ease-in-out;
 }
 .mapa-wrap path:hover {
-  fill: #20c9c9;
+  fill: #c96f20;
 }
 .active {
-  fill: #20c997 !important;
+  fill: #17a2b8 !important;
 }
 </style>
