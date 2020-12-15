@@ -1,8 +1,11 @@
 <template>
   <div class="info-sidebar">
       <b-sidebar id="sidebar-right" right shadow z-index="1" @shown="sidebarVisible" @hidden="sidebarHidden">
+        <template #header>
+          <b-icon-x></b-icon-x>
+        </template>
         <div class="px-3 py-2">
-          <h2>{{content ? content.name : 'Sidebar'}}</h2>
+          <h4>{{content ? content.name : 'Sidebar'}}</h4>
           <p v-if="content">
             {{content.d}}
           </p>
@@ -36,5 +39,11 @@ export default {
 </script>
 
 <style>
-.info-sidebar .b-sidebar.b-sidebar-right { z-index: 1; padding-top: 52px; }
+.info-sidebar .b-sidebar.b-sidebar-right { 
+  z-index: 1; 
+  padding-top: 52px; 
+}
+.b-sidebar-body {
+  overflow: hidden;
+}
 </style>

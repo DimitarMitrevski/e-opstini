@@ -23,7 +23,38 @@ export default {
     max-height: calc(100vh - 58px);
     overflow-y: auto;
 }
+.mun-list::-webkit-scrollbar {
+      width: 5px;
+      background-color: #cdcdb7
+}
+.mun-list::-webkit-scrollbar-thumb{
+    background-color: #abab9a
+}
 .mun-list .list-group { 
     border-radius: 0; 
+}
+.mun-list .list-group-item {
+    color: #7c7c6e;
+    background: #ececd4;
+    border: none;
+    position: relative;
+    transition: all .3s ease-in-out;
+    outline: none !important;
+}
+.mun-list .list-group-item:nth-child(odd){
+    background: #e3e3cb;
+}
+.mun-list .list-group-item:hover{
+    background: #f7f7e7;
+}
+.mun-list .list-group-item::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 75%;
+    height: 100%;
+    border-bottom: 1px solid #c8c8b3;
 }
 </style>
