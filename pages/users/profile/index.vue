@@ -1,8 +1,5 @@
 <template>
   <div class="userProfileCont">
-    <div class="popUp" v-if="modal">
-      <Nabavki :opstina="userDatas.city" />
-    </div>
     <b-container fluid class="profileTab">
       <b-row align-v="center" id="profile">
         <b-col cols="7">
@@ -20,7 +17,9 @@
         </b-col>
         <b-col class="newsSignOut">
           <div class="block">
-            <h3>Разгледај Новости за Општина {{ userDatas.city }}</h3>
+            <h3 @click="showNovosti">
+              Разгледај Новости за {{ userDatas.city }}
+            </h3>
           </div>
           <b-button block variant="light" class="signOut" @click="odjava"
             >Одјави се</b-button
@@ -45,21 +44,29 @@
       </b-col>
       <b-col>
         <div class="rects">
-          <h3>Буџет на Општина Битола во последните 3 години</h3>
-          <column-chart
+          <h5 class="text-center">
+            Буџет на {{ userDatas.city }} во последните 3 години
+          </h5>
+          <bar-chart
+            width="95%"
+            height="95%"
             :colors="['#54C9BB']"
             :data="[
               ['2018', 100000],
               ['2019', 98000],
               ['2020', 97500],
             ]"
-            xtitle="Година"
-            ytitle="Буџет"
-          ></column-chart>
+            ytitle="Година"
+            xtitle="Буџет"
+          ></bar-chart>
         </div>
-        <div class="rect1" @click="modal = !modal"><h3>Јавни набавки</h3></div>
+        <div class="rect1" @click="scroll"><h3>Јавни набавки</h3></div>
       </b-col>
     </b-row>
+
+    <div class="popUp" v-if="modal" style="margin-bottom: 10px">
+      <Nabavki :opstina="userDatas.city" />
+    </div>
   </div>
 </template>
 <script>
@@ -71,8 +78,10 @@ export default {
       userDatas: [],
       userID: '',
       modal: false,
+      height: '1000px',
     }
   },
+
   async created() {
     await firebase.auth().onAuthStateChanged((user) => {
       if (user) {
@@ -89,7 +98,25 @@ export default {
   mounted() {
     console.log(this.userID)
   },
+
   methods: {
+    showNovosti() {
+      this.$store.dispatch(
+        'municipality/setSelectedMunicipality',
+        this.userDatas.city
+      )
+      this.$router.push('/municipality')
+    },
+    scroll() {
+      this.modal = !this.modal
+      setTimeout(function () {
+        window.scrollTo({
+          top: window.screen.height - 20,
+
+          behavior: 'smooth',
+        })
+      }, 250)
+    },
     odjava() {
       firebase.auth().signOut()
       this.$router.push('/')
@@ -108,7 +135,8 @@ export default {
 <style scoped>
 .userProfileCont {
   width: 100vw;
-  background: cadetblue;
+  background: cadetblue !important;
+  padding-bottom: 10px;
 }
 .profileTab {
   color: white;
@@ -131,6 +159,11 @@ export default {
   justify-content: center;
   text-align: center;
   align-items: center;
+  transition: 0.3s;
+}
+.block:hover {
+  background: white;
+  color: cadetblue;
 }
 .underline {
   width: 95vw;

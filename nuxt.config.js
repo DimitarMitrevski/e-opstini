@@ -1,7 +1,7 @@
 export default {
   // Global page headers (https://go.nuxtjs.dev/config-head)
   head: {
-    title: 'e-opstini',
+    title: 'Е-општини',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
@@ -20,7 +20,7 @@ export default {
   components: true,
 
   // Modules for dev and build (recommended) (https://go.nuxtjs.dev/config-modules)
-  buildModules: ['@nuxtjs/moment',],
+  buildModules: ['@nuxtjs/moment'],
 
   // Modules (https://go.nuxtjs.dev/config-modules)
   modules: [
@@ -28,11 +28,11 @@ export default {
     'bootstrap-vue/nuxt',
   ],
   bootstrapVue: {
-    icons: true
+    icons: true,
   },
 
   bootstrapVue: {
-    icons: true
+    icons: true,
   },
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)
