@@ -5,10 +5,12 @@
       <b-col cols="2">
         <municipality-list :data="opstini" @chosen-mun="selectedMunList" />
       </b-col>
-      <b-col cols="8">
+      <b-col cols="9">
         <mapa :selectedpath="selectedPath" :data="opstini" :sidebar="openSidebar" @selected-municipality="selectedMun" />
       </b-col>
-      <b-col style="background: #f4f4d5"></b-col>
+      <b-col class="d-flex justify-content-center align-items-center" cols="1" style="background: #f4f4d5; padding: 1rem">
+        
+      </b-col>
     </b-row>
   </div>
 </template>

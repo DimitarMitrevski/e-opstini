@@ -238,6 +238,7 @@ export default {
       selectedOpstina: null,
       optionsOpstini: [
         { value: null, text: 'Изберете една оштина' },
+        { value: this.opstina, text: this.opstina},
         { value: 'Општина Битола', text: 'Општина Битола' },
         { value: 'Општина Валандово', text: 'Општина Валандово' },
         { value: 'Општина Гостивар', text: 'Општина Гостивар' },

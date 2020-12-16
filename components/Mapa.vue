@@ -1,6 +1,7 @@
 <template>
 <div class="mapa-main">
   <div class="mapa-wrap">
+    <h1 class="text-center mb-4">Платформа за отворени општини</h1>
       <svg class="map-svg"  fill="#7c7c7c" stroke="#f4f4d5" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewbox="0 0 1000 791" xmlns="http://www.w3.org/2000/svg">
         <path 
             v-for="(opstina, idx) in data" :key="idx" 
