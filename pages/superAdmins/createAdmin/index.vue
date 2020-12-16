@@ -1,12 +1,12 @@
 <template>
   <div class="col-10 col-md-4 form">
     <b-container>
-      <h2>Регистирај се</h2>
+      <h2>Регистирај Админ</h2>
     </b-container>
     <b-form @submit="onSubmit" @reset="onReset" v-if="show">
       <b-form-group
         id="input-group-1"
-        :label="tip !== 'user' ? 'Име и презиме' : 'Име и Презиме'"
+        :label="'Име и презиме'"
         label-for="input-2"
       >
         <b-form-input
@@ -21,9 +21,7 @@
               ? null
               : false
           "
-          :placeholder="
-            tip !== 'user' ? 'Внеси име и презиме' : 'Внеси име и презиме'
-          "
+          :placeholder="'Внеси име и презиме'"
         ></b-form-input>
       </b-form-group>
 
@@ -41,16 +39,15 @@
         ></b-form-input>
       </b-form-group>
 
-      <b-form-group
-        id="input-group-2"
-        label="Изберете Општина"
-        label-for="input-1"
-      >
-        <b-form-select
-          name="selectOpstini"
-          v-model="selectedOpstina"
-          :options="optionsOpstini"
-        ></b-form-select>
+      <b-form-group id="input-group-2" label="Град" label-for="input-1">
+        <b-form-input
+          id="input-2"
+          v-model="form.city"
+          maxlength="50"
+          type="text"
+          required
+          placeholder="Внесете град"
+        ></b-form-input>
       </b-form-group>
 
       <b-form-group id="input-group-2" label="Адреса" label-for="input-1">
@@ -155,14 +152,11 @@
       </b-form-group>
 
       <b-container>
-        <b-button
-          id="registerButton"
-          type="submit"
-          variant="primary"
-          align-content="center"
+        <b-button type="submit" variant="primary" align-content="center"
           >Регистрирај профил</b-button
         >
       </b-container>
+      <a href="/admins/profile"><p>Оди на профил</p></a>
     </b-form>
   </div>
 </template>
@@ -172,8 +166,7 @@ import firebase from 'firebase'
 require('firebase/auth')
 
 export default {
-  name: 'Form',
-  props: ['tip'],
+  name: 'name',
   data() {
     return {
       form: {
@@ -195,33 +188,21 @@ Password must - Have at least 8 characters - Contain characters from at least 3 
       show: true,
       selected: '+389',
       options: [{ value: '+389', text: '+389' }],
-      selectedOpstina: null,
-      optionsOpstini: [
-        { value: null, text: 'Изберете една оштина' },
-        { value: 'Општина Битола', text: 'Општина Битола' },
-        { value: 'Општина Валандово', text: 'Општина Валандово' },
-        { value: 'Општина Гостивар', text: 'Општина Гостивар' },
-        { value: 'Општина Штип', text: 'Општина Штип' },
-        { value: 'Општина Карпош', text: 'Општина Карпош' },
-      ],
     }
   },
   methods: {
     async onSubmit(evt) {
       evt.preventDefault()
-      const tip1 = this.tip == 'user' ? 'Users' : 'Admins'
       const contactTel = this.selected + this.form.contactTel
       const forma = {
         adress: this.form.adress,
-        city: this.selectedOpstina,
+        city: this.form.city,
         contactTel: contactTel,
         email: this.form.email,
         imePrezime: this.form.name,
         password: this.form.password,
       }
-      this.$store.dispatch('users/signUp', forma).then(() => {
-        this.$router.push('/users/profile')
-      })
+      this.$store.dispatch('superAdmins/createAdmin', forma)
       this.onReset(evt)
     },
 
@@ -255,21 +236,29 @@ Password must - Have at least 8 characters - Contain characters from at least 3 
   margin: 0 auto;
   background: #fdfdfd;
   border-radius: 10px;
-  box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.6);
+
   /* border-right: 20px solid #f36f62; */
 }
 .container {
   text-align: center;
 }
 .container h2 {
-  color: cadetblue;
+  color: #54aec7;
   font-weight: bolder;
   font-size: 30px;
   padding-top: 11px;
 }
-
+.btn-primary {
+  margin-bottom: 14px;
+  background: #54aec7;
+  border: none;
+  transition: 0.5s;
+  box-shadow: 3px 3px 7px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  font-weight: 500;
+}
 .btn-primary:hover {
-  background-color: cadetblue;
+  background-color: #54aec7;
 }
 
 .form-group label {
@@ -284,7 +273,7 @@ Password must - Have at least 8 characters - Contain characters from at least 3 
   color: #c4c4c4;
 }
 .form-control :focus {
-  border-color: cadetblue;
+  border-color: #54aec7;
   box-shadow: 0 0 0 0.2rem rgba(255, 150, 99, 0.85);
 }
 
@@ -296,20 +285,5 @@ h2.company {
 }
 .btn-primary-company:hover {
   background-color: #00c7d6;
-}
-#registerButton {
-  width: 30vw;
-  height: 5vh;
-  font-weight: 0;
-  background: none;
-  border: 2px solid cadetblue;
-  color: cadetblue;
-  transition: 0.3s;
-  margin-bottom: 14px;
-}
-#registerbutton:hover {
-  background: cadetblue;
-  color: white;
-  margin-bottom: 14px;
 }
 </style>

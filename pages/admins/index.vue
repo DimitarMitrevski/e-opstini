@@ -1,7 +1,7 @@
 <template>
   <div class="col-10 col-md-4 form">
     <b-container>
-      <h2>Регистирај се</h2>
+      <h2>Регистирај се, Администратор</h2>
     </b-container>
     <b-form @submit="onSubmit" @reset="onReset" v-if="show">
       <b-form-group
@@ -201,8 +201,10 @@ Password must - Have at least 8 characters - Contain characters from at least 3 
         imePrezime: this.form.name,
         password: this.form.password,
       }
-      this.$store.dispatch('admins/signUp', forma)
-      this.$router.push('/admins/profile')
+      this.$store.dispatch('admins/signUp', forma).then(() => {
+        this.$router.push('/admins/profile')
+      })
+
       this.onReset(evt)
     },
 

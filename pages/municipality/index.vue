@@ -249,6 +249,7 @@
                 <b-icon icon="people"></b-icon>200,000
               </h3>
               <column-chart
+                width="100"
                 :data="[['2018', 100000], ['2019', 98000], ['2020', 97500]]"
                 xtitle="Година"
                 ytitle="Популација"
@@ -262,7 +263,7 @@
                 <br />
                 <b-icon icon="cash-stack"></b-icon>200,000ден
               </h3>
-              <pie-chart :data="[['Вкупен буџет', 100], ['Реализиран', 40]]"></pie-chart>
+              <pie-chart width="100" :data="[['Вкупен буџет', 100], ['Реализиран', 40]]"></pie-chart>
             </div>
           </b-col>
           <b-col>
@@ -272,51 +273,28 @@
                 <br />
                 <b-icon icon="cash"></b-icon>100,000ден
               </h3>
-              <area-chart
-                :data="{'2020-03-01 00:00:00 -0800': 30000, '2020-10-01 00:01:00 -0800': 100000}"
-              ></area-chart>
+              <bar-chart
+                :data="[['Јануари-Март', 30000],['Април-Мај', 20000], ['Мај-Јуни', 10000]]"
+                width="100%"
+              ></bar-chart>
             </div>
           </b-col>
         </b-row>
         <br />
         <b-row>
+          <b-col></b-col>
           <b-col>
-            <div class="actions">
-              <h3>Јавни набавки</h3>
-            </div>
-          </b-col>
-          <b-col>
-            <div class="actions">
-              <h3>Рејтинг 9/10</h3>
-            </div>
-          </b-col>
-          <b-col>
-            <div class="actions">
+            <div style="min-height: 100%;
+  padding: 20px; text-align:center;">
               <h3>
-                Вклученост на граѓаните:
-                8/10
+                <b-icon icon="book" variant="light" style="margin-right:10px;"></b-icon>Јавни набавки
               </h3>
             </div>
           </b-col>
+          <b-col></b-col>
         </b-row>
         <br />
-        <b-row>
-          <b-col>
-            <div class="actions">
-              <h3>Транспарентност: 8/10</h3>
-            </div>
-          </b-col>
-          <b-col>
-            <div class="actions">
-              <h3>Праведност 8/10</h3>
-            </div>
-          </b-col>
-          <b-col>
-            <div class="actions">
-              <h3>Отчетност: 8/10</h3>
-            </div>
-          </b-col>
-        </b-row>
+        <Nabavki :opstina="opstina" />
       </b-container>
     </b-container>
   </div>
@@ -326,6 +304,9 @@
 import firebase from '~/plugins/firebase'
 
 export default {
+  head() {
+    return {}
+  },
   data() {
     return {
       opstina: 'Општина Битола',
@@ -348,12 +329,14 @@ export default {
         { value: 'Финансии', text: 'Финансии' },
         { value: 'Образование', text: 'Образование' },
         { value: 'Урбанизам', text: 'Урбанизам' },
+        { value: 'Отворени податоци', text: 'Отворени податоци' },
         {
           value: 'Здравство',
           text: 'Здравство - Нема ваков сектор',
           disabled: true,
         },
       ],
+
       answer: {
         answer1: null,
         answer2: null,
@@ -492,6 +475,7 @@ export default {
 
 <style scoped>
 .bg-all {
+  padding-top: 10px;
   background: cadetblue;
   color: white;
 }
@@ -499,6 +483,13 @@ export default {
 a {
   color: white;
   text-decoration: underline;
+}
+td a {
+  color: #17a2b8;
+}
+.h3 {
+  text-align: center;
+  color: white;
 }
 hr {
   background: white;
@@ -531,6 +522,7 @@ h2 {
   padding: 20px;
   cursor: pointer;
   transition: 0.5s;
+  border-radius: 20px;
 }
 .col .actions:hover {
   background: #ffffff;
