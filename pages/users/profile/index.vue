@@ -1,5 +1,8 @@
 <template>
   <div class="userProfileCont">
+    <div class="popUp" v-if="modal">
+      <Nabavki :opstina="userDatas.city" />
+    </div>
     <b-container fluid class="profileTab">
       <b-row align-v="center" id="profile">
         <b-col cols="7">
@@ -54,7 +57,7 @@
             ytitle="Буџет"
           ></column-chart>
         </div>
-        <div class="rect1"><h3>Јавни набавки</h3></div>
+        <div class="rect1" @click="modal = !modal"><h3>Јавни набавки</h3></div>
       </b-col>
     </b-row>
   </div>
@@ -67,6 +70,7 @@ export default {
     return {
       userDatas: [],
       userID: '',
+      modal: false,
     }
   },
   async created() {

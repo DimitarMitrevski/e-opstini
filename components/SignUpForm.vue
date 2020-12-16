@@ -41,15 +41,16 @@
         ></b-form-input>
       </b-form-group>
 
-      <b-form-group id="input-group-2" label="Град" label-for="input-1">
-        <b-form-input
-          id="input-2"
-          v-model="form.city"
-          maxlength="50"
-          type="text"
-          required
-          placeholder="Внесете град"
-        ></b-form-input>
+      <b-form-group
+        id="input-group-2"
+        label="Изберете Општина"
+        label-for="input-1"
+      >
+        <b-form-select
+          name="selectOpstini"
+          v-model="selectedOpstina"
+          :options="optionsOpstini"
+        ></b-form-select>
       </b-form-group>
 
       <b-form-group id="input-group-2" label="Адреса" label-for="input-1">
@@ -194,6 +195,15 @@ Password must - Have at least 8 characters - Contain characters from at least 3 
       show: true,
       selected: '+389',
       options: [{ value: '+389', text: '+389' }],
+      selectedOpstina: null,
+      optionsOpstini: [
+        { value: null, text: 'Изберете една оштина' },
+        { value: 'Општина Битола', text: 'Општина Битола' },
+        { value: 'Општина Валандово', text: 'Општина Валандово' },
+        { value: 'Општина Гостивар', text: 'Општина Гостивар' },
+        { value: 'Општина Штип', text: 'Општина Штип' },
+        { value: 'Општина Карпош', text: 'Општина Карпош' },
+      ],
     }
   },
   methods: {
@@ -203,7 +213,7 @@ Password must - Have at least 8 characters - Contain characters from at least 3 
       const contactTel = this.selected + this.form.contactTel
       const forma = {
         adress: this.form.adress,
-        city: this.form.city,
+        city: this.selectedOpstina,
         contactTel: contactTel,
         email: this.form.email,
         imePrezime: this.form.name,
