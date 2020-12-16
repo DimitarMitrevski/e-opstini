@@ -4,15 +4,17 @@
         <header class="header">
             <h2>{{post.title}}</h2>
             <div class="author">
-                <a href="#!" class="mun">Општина Битола</a>
-                <img src="https://placekitten.com/50/50" alt="">
+                <a href="#!" class="mun">Општина {{opstina.name}}</a>
+                <img v-if="opstina.grbUrl" style="height: 50px; width: 50px" :src="opstina.grbUrl" alt="">
+                <img v-else style="height: 50px; width: 50px" src="https://republika.mk/wp-content/uploads/2019/12/grb-opshtina-tuzi-sonce-kutlesh-476x640.jpg" alt="">
             </div>
         </header>
         <body>
+            <img v-if="post.files.length" :src="post.files[0]" style="max-height: 300px" alt="">
             <p class="blog-post">
                 {{post.body}}
             </p>
-            <p class="text-right text-secondary">Oбјавено на 11 март 2020.</p>
+            <p class="text-right text-secondary">Oбјавено на {{$moment( randomDate(new Date(2020, 0, 1), new Date()) ).format('lll')}}.</p>
         </body>
         <footer class="documents">
             <h4>Документи на предлогот</h4>
@@ -31,7 +33,7 @@
             </b-list-group>
         </footer>
     </article>
-    <!-- <blog-comments /> -->
+    <blog-comments />
   </b-container>
 </template>
 
@@ -41,7 +43,9 @@ export default {
     data() {
         return {
             post: {},
-            filetype: ''
+            filetype: '',
+            opstina: {},
+            opstini: []
         }
     },
     mounted() {
@@ -55,10 +59,24 @@ export default {
     async asyncData({ params, store }){
         await store.dispatch('blogs/getSinglePost', params.id);
         let arr = store.state.blogs.blogPost;
+
+        let ops = store.state.municipality.municipalities;
+
         return { 
-            post: arr
+            post: arr,
+            opstini: ops
         }
     },
+    created() {
+        // console.log(this.opstini)
+        const idx = Math.floor(Math.random() * this.opstini.length);
+        this.opstina = this.opstini[idx]
+    },
+    methods: {
+        randomDate(start, end) {
+            return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
+        }
+    }
 }
 </script>
 

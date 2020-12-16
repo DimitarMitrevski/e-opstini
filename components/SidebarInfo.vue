@@ -1,20 +1,29 @@
 <template>
   <div class="info-sidebar">
-      <b-sidebar id="sidebar-right" right shadow z-index="1" @shown="sidebarVisible" @hidden="sidebarHidden">
-        <template #header>
+      <b-sidebar id="sidebar-right" right shadow z-index="1" @shown="sidebarVisible" @hidden="sidebarHidden" no-header>
+        <!-- <template #header>
           <b-icon-x></b-icon-x>
-        </template>
-        <div class="px-3 py-2">
-          <h4>{{content ? content.name : 'Sidebar'}}</h4>
-          <p v-if="content">
-            <!-- {{content.d}} -->
-          </p>
-          <p v-else>
-            Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis
-            in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
-          </p>
-          <img style="max-width: 100%" :src="content.grbUrl" alt="">
+        </template> -->
+        <div class="d-flex flex-column justify-content-center align-items-center h-100 p-3">
+          <div class="infwrapper">
+            <h4 class="text-center">Општина {{content ? content.name : 'Sidebar'}}</h4>
+            <img class="grb" :src="content.grbUrl" alt="">
+            <div class="table-wrap">
+              <b-table striped hover :items="[
+                { Број_на_жители: 11890, Регион: 'Југоисточен' }
+              ]"></b-table>
+            </div>
+            <div class="chart-wrap" v-if="content.prihodi && content.rashodi">
+              <column-chart width="250px" :colors="['#74dace']" :data="[[`Приходи:`, content.prihodi], [`Расходи:`, content.rashodi]]"></column-chart>
+            </div>
+            <b-button class="d-block mt-4 mx-auto btn-info" size="lg" to="/municipality">Повеќе...</b-button>
+          </div>
         </div>
+        <template #footer="{ hide }">
+          <div class="d-flex bg-info text-light align-items-center justify-content-center py-2">
+            <b-button variant="warning" size="sm" @click="hide"><b-icon-x></b-icon-x></b-button>
+          </div>
+        </template>
       </b-sidebar>
   </div>
 </template>
@@ -45,5 +54,14 @@ export default {
 }
 .b-sidebar-body {
   overflow: hidden;
+}
+.info-sidebar .grb {
+  width: 150px;
+  display: block;
+  margin: auto;
+  height: auto;
+}
+.info-sidebar .chart-wrap > *, .info-sidebar .table-wrap > * {
+  margin: 2rem auto 0
 }
 </style>

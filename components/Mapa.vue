@@ -91,8 +91,8 @@ export default {
   margin-top: 1rem;
 }
 .map-svg {
-  width: 60%;
-  height: auto;
+  width: 100%;
+  height: 80%;
 }
 .mapa-wrap path {
   fill: #f9c55e;

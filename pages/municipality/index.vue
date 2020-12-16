@@ -178,13 +178,13 @@
           <b-row>
             <b-col cols="2" class="logo">
               <img
-                src="https://www.bitola.gov.mk/wordpress/wp-content/uploads/2019/05/grb.gif"
+                :src="opstinaObj.grbUrl"
                 width="100%"
               />
             </b-col>
             <b-col cols="8">
               <h2>
-                Општина Битола
+                {{opstina}}
                 <b-badge variant="success" v-if="ocena!=0">Оцена: {{ocena}}</b-badge>
               </h2>
               <p>
@@ -329,6 +329,7 @@ export default {
   data() {
     return {
       opstina: 'Општина Битола',
+      opstinaObj: {},
       file1: null,
       send: false,
       ocena: 0,
@@ -477,6 +478,15 @@ export default {
     // await this.$nextTick()
     // console.log(this.$el.textContent) // 'updated'
   },
+  async asyncData({ store }){
+        // await store.getters.getMunicipality;
+        let arr = store.state.municipality.municipality;
+        // console.log(arr.name)
+        return { 
+            opstina: 'Општина ' + arr.name,
+            opstinaObj: arr
+        }
+    },
 }
 </script>
 

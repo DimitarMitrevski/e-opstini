@@ -1,21 +1,13 @@
 <template>
-  <h1>{{post.body}}</h1>
+<b-container>
+  <blog-comments />
+</b-container>
 </template>
 
 <script>
+import BlogComments from '~/components/BlogComments.vue'
 export default {
-    data() {
-        return {
-            post: {}
-        }
-    },
-    async asyncData({store}){
-        await store.dispatch('blogs/getSinglePost', 'Kosn');
-        let arr = store.state.blogs.blogPost;
-        return { 
-            post: arr
-        }
-    },
+  components: { BlogComments },
 }
 </script>
 

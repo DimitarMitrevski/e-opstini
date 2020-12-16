@@ -61,9 +61,6 @@ export default {
             this.deleteFiles();
         },
         upload(files){
-            if (!files.length) {
-                return
-            }
             const storage = firebase.storage();
             
             for (var i = 0; i < files.length; i++) {
@@ -82,8 +79,9 @@ export default {
                 })
 
                 uploadTask.then((url) => {
-                    this.imgUrl.push(url.toString());
+                    this.imgUrl.push(url);
                 })
+                console.log(this.imgUrl)
             }
         },
         deleteFiles(){
@@ -103,7 +101,8 @@ export default {
                     files: this.imgUrl
                 };
                 db.collection("blogPosts").add(blogPost);
-                this.resetForm();
+                this.naslov = this.files = this.sodrzina = null;
+                this.imgUrl = [];
             }
             catch(e) { console.log(e) }
         }
