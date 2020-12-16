@@ -289,7 +289,6 @@ export default {
   created() {
     this.selectedOpstina = this.opstina
     this.unfilteredItems = this.items
-    console.log(this.unfilteredItems)
   },
   methods: {
     async editDate(date) {
@@ -302,7 +301,9 @@ export default {
   },
   watch: {
     dataOd(newVal, oldVal) {
+      this.dataDo = null
       if (newVal != null) {
+        this.items = this.unfilteredItems
         this.min1 = newVal
         this.items = this.items.filter(function (item) {
           let arrDate = item.Датум_на_договор.split('.')
@@ -310,6 +311,7 @@ export default {
           arrDate[0] = arrDate[1]
           arrDate[1] = swtVal
           arrDate = arrDate.join('/')
+          //if (new Date(arrDate) >= new Date(newVal)) {
           if (new Date(arrDate) >= new Date(newVal)) {
             return item
           }
@@ -325,8 +327,9 @@ export default {
       }
     },
     dataDo(newVal, oldVal) {
-      let count = 0
+      this.dataOd = null
       if (newVal != null) {
+        this.items = this.unfilteredItems
         this.max = newVal
         this.items = this.items.filter(function (item) {
           let arrDate = item.Датум_на_договор.split('.')
@@ -335,7 +338,6 @@ export default {
           arrDate[1] = swtVal
           arrDate = arrDate.join('/')
           if (new Date(arrDate) <= new Date(newVal)) {
-            console.log(item, count++, new Date(arrDate))
             return item
           }
         })
