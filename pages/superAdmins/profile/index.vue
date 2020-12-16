@@ -13,6 +13,7 @@
               <b-col cols="1">
                 <h1>+</h1>
                 <h1>+</h1>
+                <h1>+</h1>
               </b-col>
               <b-col cols="8">
                 <h1>{{ datas.imePrezime }}</h1>
@@ -24,19 +25,25 @@
           </b-col>
           <b-col align-h="center">
             <div class="block">
-              <button class="post" @click="post = true">
-                Објави Пост
-                <b-icon icon="box-arrow-in-up-right" scale="1"> </b-icon>
-              </button>
+              <button class="post" @click="post = true">Објави Пост</button>
+              <b-icon icon="box-arrow-in-up-right" scale="2"> </b-icon>
             </div>
             <div class="newAdmin">
               <b-button
-                href="/admins/createSektorAdmin"
+                href="/superAdmins/createAdmin"
                 v-b-modal.modal-lg
                 variant="primary"
                 block
               >
-                Креирај нов админ на сектор
+                Креирај нов админ
+              </b-button>
+              <b-button
+                href="/superAdmins/createAdmin"
+                v-b-modal.modal-lg
+                variant="secondary"
+                block
+              >
+                Креирај профил на општина
               </b-button>
               <b-button
                 href="/admins/createSektorAdmin"
@@ -46,7 +53,7 @@
               >
                 Отвори профил на општина
               </b-button>
-              <b-button variant="light" block @click="odjava"
+              <b-button block variant="light" @click="odjava"
                 >Одјави се</b-button
               >
             </div>
@@ -103,7 +110,7 @@ export default {
   async created() {
     await firebase.auth().onAuthStateChanged((user) => {
       if (user) {
-        this.getdispatch(user.uid)
+        this.getDispatch(user.uid)
       } else {
         console.log('User is not signed out!')
       }
@@ -114,10 +121,11 @@ export default {
       firebase.auth().signOut()
       this.$router.push('/')
     },
-    async getdispatch(uid) {
-      await this.$store.dispatch('admins/getUser', uid)
-      const datas = await this.$store.state.admins.adminInfo
+    async getDispatch(uid) {
+      await this.$store.dispatch('superAdmins/getUser', uid)
+      const datas = this.$store.state.superAdmins.superAdminInfo
       const userID = uid
+      this.userID = userID
       this.datas = datas
     },
   },
@@ -167,8 +175,8 @@ export default {
   color: cadetblue;
 }
 .post {
-  width: 30vw;
-  height: 7vw;
+  width: 15vw;
+  height: 3vw;
   border: none;
   border-radius: 10px;
   color: white;
