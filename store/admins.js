@@ -4,26 +4,49 @@ require('firebase/auth')
 
 export const state = () => ({
   adminInfo: {},
+  sectorAdminInfo: {},
 })
 
 export const mutations = {
   setCurrentAdmin(state, payload) {
     state.adminInfo = payload
   },
+  setCurrentSectorAdmin(state, payload) {
+    state.sectorAdminInfo = payload
+  },
 }
 
 export const actions = {
   async signUp(state, payload) {
-    await db.collection('Admins').add(payload)
     const email = payload.email
     const password = payload.password
-    firebase.auth().then((user) => {
-      var usr = firebase.auth().currentUser
-      usr
-        .sendEmailVerification()
-        .then(function () {})
-        .catch(function (error) {})
-    })
+    await firebase
+      .auth()
+      .createUserWithEmailAndPassword(email, password)
+      .then((user) => {
+        var usr = firebase.auth().currentUser
+        db.collection('Admins').doc(usr.uid).set(payload)
+        usr
+          .sendEmailVerification()
+          .then(function () {})
+          .catch(function (error) {})
+      })
+  },
+
+  async createAdmin(state, payload) {
+    const email = payload.email
+    const password = payload.password
+    await firebase
+      .auth()
+      .createUserWithEmailAndPassword(email, password)
+      .then((user) => {
+        var usr = firebase.auth().currentUser
+        db.collection('SectorAdmins').doc(usr.uid).set(payload)
+        usr
+          .sendEmailVerification()
+          .then(function () {})
+          .catch(function (error) {})
+      })
   },
   async getUser(state, payload) {
     await db
@@ -39,17 +62,19 @@ export const actions = {
         }
       })
   },
-  async createAdmin(state, payload) {
-    await db.collection('SectorAdmins').add(payload)
 
-    firebase.auth().then((user) => {
-      var usr = firebase.auth().currentUser
-      usr
-        .sendEmailVerification()
-        .then(function () {
-          this.$router.push('/users')
-        })
-        .catch(function (error) {})
-    })
+  async getSector(state, payload) {
+    await db
+      .collection('SectorAdmins')
+      .doc(payload)
+      .get()
+      .then(function (doc) {
+        if (doc.exists) {
+          state.commit('setCurrentSectorAdmin', doc.data())
+        } else {
+          // doc.data() will be undefined in this case
+          console.log('No such document!')
+        }
+      })
   },
 }

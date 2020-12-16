@@ -7,13 +7,13 @@
         <div class="px-3 py-2">
           <h4>{{content ? content.name : 'Sidebar'}}</h4>
           <p v-if="content">
-            {{content.d}}
+            <!-- {{content.d}} -->
           </p>
           <p v-else>
             Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis
             in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
           </p>
-          <b-img src="https://picsum.photos/500/500/?image=54" fluid thumbnail></b-img>
+          <img style="max-width: 100%" :src="content.grbUrl" alt="">
         </div>
       </b-sidebar>
   </div>

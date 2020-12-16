@@ -12,7 +12,6 @@
               </b-col>
               <b-col cols="1">
                 <h1>+</h1>
-                <h1>+</h1>
               </b-col>
               <b-col cols="8">
                 <h1>{{ datas.imePrezime }}</h1>
@@ -30,13 +29,8 @@
               </button>
             </div>
             <div class="newAdmin">
-              <b-button
-                href="/admins/createSektorAdmin"
-                v-b-modal.modal-lg
-                variant="primary"
-                block
-              >
-                Креирај нов админ на сектор
+              <b-button v-b-modal.modal-lg variant="primary" block>
+                Прати порака до админ
               </b-button>
               <b-button
                 href="/admins/createSektorAdmin"
@@ -97,6 +91,7 @@ export default {
     return {
       datas: {},
       dataFire: {},
+      userID: {},
       post: false,
     }
   },
@@ -115,8 +110,8 @@ export default {
       this.$router.push('/')
     },
     async getdispatch(uid) {
-      await this.$store.dispatch('admins/getUser', uid)
-      const datas = await this.$store.state.admins.adminInfo
+      await this.$store.dispatch('admins/getSector', uid)
+      const datas = await this.$store.state.admins.sectorAdminInfo
       const userID = uid
       this.datas = datas
     },
