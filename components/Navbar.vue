@@ -12,7 +12,7 @@
       <!-- Right aligned nav items -->
       <b-navbar-nav class="ml-auto">
         <b-nav-item-dropdown right text="Најави се">
-          <b-dropdown-item to="/users/usersignup"
+          <b-dropdown-item to="/users/userSignUp"
             >Регистрирај се</b-dropdown-item
           >
           <b-dropdown-item to="/singin"

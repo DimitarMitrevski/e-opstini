@@ -168,7 +168,7 @@
 </template>
 <script>
 import { db } from '~/plugins/firebase'
-import firebase from 'firebase'
+import firebase from 'firebase/app'
 require('firebase/auth')
 
 export default {
@@ -212,7 +212,6 @@ Password must - Have at least 8 characters - Contain characters from at least 3 
       if (user) {
         this.callStore(user.uid)
       } else {
-        this.$router.push('/singIn')
       }
     })
   },

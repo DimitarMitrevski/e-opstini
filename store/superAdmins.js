@@ -54,7 +54,7 @@ export const actions = {
         usr
           .sendEmailVerification()
           .then(function () {
-            this.$router.push('/superAdmins/profile')
+            document.location.href = '/Admins/profile'
           })
           .catch(function (error) {})
       })
