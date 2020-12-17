@@ -1,7 +1,7 @@
 <template>
   <div class="signUpCont">
-    <div class="circle"></div>
-    <SignUpForm tip="user" />
+    <SignUpForm tip="user" style="z-index: 1000" />
+    <!-- <div class="circle"></div> -->
   </div>
 </template>
 <script>
@@ -33,19 +33,18 @@ export default {
 .circle {
   background: white;
   position: absolute;
-  top: -50%;
+  top: -70%;
   right: -5%;
   width: 200vw;
   rotate: 90deg;
   height: 70vw;
   border-radius: 50%;
+  z-index: 0;
 }
 .signUpCont {
-  width: 100vw;
-  height: 95vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  padding-top: 40px;
+  padding-bottom: 40px;
   background: cadetblue;
+  min-height: 100vh;
 }
 </style>

@@ -13,6 +13,7 @@ body {
   overflow-x: hidden;
   overflow-y: auto;
   font-family: 'DyslexicFZF', sans-serif;
+  min-height: 100vh;
 }
 </style>
 <script></script>

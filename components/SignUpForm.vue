@@ -1,9 +1,13 @@
 <template>
-  <div class="col-10 col-md-4 form">
-    <b-container>
-      <h2>Регистирај се</h2>
-    </b-container>
-    <b-form @submit="onSubmit" @reset="onReset" v-if="show">
+  <div style="width: 50%; margin: 0px auto">
+    <b-form
+      @submit="onSubmit"
+      @reset="onReset"
+      v-if="show"
+      id="signupForm"
+      class="form"
+    >
+      <h2 class="text-center">Регистирај се</h2>
       <b-form-group
         id="input-group-1"
         :label="tip !== 'user' ? 'Име и презиме' : 'Име и Презиме'"
@@ -270,14 +274,15 @@ Password must - Have at least 8 characters - Contain characters from at least 3 
   padding: 0.275rem 1.75rem 0.275rem 0.75rem;
 }
 .form {
-  margin: 0 auto;
   background: #fdfdfd;
-  border-radius: 10px;
   box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.6);
-  /* border-right: 20px solid #f36f62; */
+  padding-bottom: 10px;
+  padding: 26px;
+  border-radius: 20px;
 }
-.container {
+/* .container {
   text-align: center;
+  height: 3vh;
 }
 .container h2 {
   color: cadetblue;
@@ -329,5 +334,5 @@ h2.company {
   background: cadetblue;
   color: white;
   margin-bottom: 14px;
-}
+} */
 </style>
