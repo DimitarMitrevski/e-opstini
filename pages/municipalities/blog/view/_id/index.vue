@@ -59,58 +59,6 @@
           </b-list-group-item>
         </b-list-group>
       </footer>
-      <header class="header">
-        <h2>{{ post.title }}</h2>
-        <div class="author">
-          <a href="#!" class="mun">Општина {{ opstina.name }}</a>
-          <img
-            v-if="opstina.grbUrl"
-            style="height: 50px; width: 50px"
-            :src="opstina.grbUrl"
-            alt=""
-          />
-          <img
-            v-else
-            style="height: 50px; width: 50px"
-            src="https://republika.mk/wp-content/uploads/2019/12/grb-opshtina-tuzi-sonce-kutlesh-476x640.jpg"
-            alt=""
-          />
-        </div>
-      </header>
-      <body>
-        <div class="banner">
-          <h2>Планирање буџет за Општина {{ opstina.name }}</h2>
-        </div>
-        <!-- <img v-if="post.files.length" :src="post.files[0]" style="max-height: 300px" alt=""> -->
-        <p class="blog-post">
-          {{ post.body }}
-        </p>
-        <p class="text-right text-secondary">
-          Oбјавено на
-          {{
-            $moment(randomDate(new Date(2020, 0, 1), new Date())).format('lll')
-          }}.
-        </p>
-      </body>
-      <footer class="documents">
-        <h4>Документи на предлогот</h4>
-        <b-list-group horizontal="md">
-          <b-list-group-item
-            v-for="(i, k) in 6"
-            :key="k"
-            href="#"
-            class="flex-column align-items-start"
-          >
-            <div class="d-flex w-100 justify-content-between">
-              <p>{{ filetype }}</p>
-              <small class="text-secondary">12/03/2021</small>
-            </div>
-            <p class="text-center">
-              <b-icon icon="file-earmark-spreadsheet-fill"></b-icon>
-            </p>
-          </b-list-group-item>
-        </b-list-group>
-      </footer>
     </article>
     <blog-comments />
   </b-container>
@@ -146,9 +94,6 @@ export default {
   },
 
   async created() {
-    const idx = Math.floor(Math.random() * this.opstini.length)
-    this.opstina = this.opstini[idx]
-
     this.$store.dispatch('municipality/setAllMunicipalities', this.opstini)
     await firebase.auth().onAuthStateChanged((user) => {
       if (user) {
