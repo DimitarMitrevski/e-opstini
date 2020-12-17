@@ -380,8 +380,7 @@
                 ></b-icon
                 >Јавни набавки
               </h3>
-<<<<<<< Updated upstream
-=======
+
               <b-button
                 variant="outline-light"
                 style="text-decoration: none"
@@ -390,14 +389,26 @@
                 href="/files/budzet_stip.pdf"
                 >Симни ги јавните набавки <b-icon icon="download"></b-icon
               ></b-button>
->>>>>>> Stashed changes
             </div>
           </b-col>
           <b-col></b-col>
         </b-row>
-        <div style="border-radius: 1rem;" class="d-flex justify-content-center align-items-center flex-column bg-light p-3">
+        <div
+          style="border-radius: 1rem"
+          class="d-flex justify-content-center align-items-center flex-column bg-light p-3"
+        >
           <h4 class="text-dark">Потрошени средства: 50,000 мкд.</h4>
-          <bar-chart :max="25000" :data="[['Еуро Фарм', 19460], ['Раткошпед', 10670], ['Зегин', 9480], ['Осигурителна полиса - Скопје', 5536], ['Манче Дент', 4000]]" :colors="[[ '#3366cc', '#17a2b8', 'cadetblue', '#20c997']]"></bar-chart>
+          <bar-chart
+            :max="25000"
+            :data="[
+              ['Еуро Фарм', 19460],
+              ['Раткошпед', 10670],
+              ['Зегин', 9480],
+              ['Осигурителна полиса - Скопје', 5536],
+              ['Манче Дент', 4000],
+            ]"
+            :colors="[['#3366cc', '#17a2b8', 'cadetblue', '#20c997']]"
+          ></bar-chart>
         </div>
         <br />
         <Nabavki :opstina="opstina" />
