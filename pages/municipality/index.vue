@@ -546,16 +546,20 @@ export default {
     },
   },
   async created() {
-    if (localStorage.getItem('opstina') !== null || localStorage.getItem('opstina') !== null){
-      const opsO = JSON.parse(localStorage.getItem('opstina'));
-      this.opstina = 'Општина ' + opsO.name;
-      this.opstinaObj = await opsO;
-    }
-    else {
-      const municipalities = this.$store.state.municipality.municipalities;
-      var result = municipalities.filter((municipality) => municipality.name === 'Битола');
-      this.opstina = 'Општина Битола';
-      this.opstinaObj= result[0];
+    if (
+      localStorage.getItem('opstina') !== null ||
+      localStorage.getItem('opstina') !== null
+    ) {
+      const opsO = JSON.parse(localStorage.getItem('opstina'))
+      this.opstina = 'Општина ' + opsO.name
+      this.opstinaObj = await opsO
+    } else if (!this.opstina) {
+      const municipalities = this.$store.state.municipality.municipalities
+      var result = municipalities.filter(
+        (municipality) => municipality.name === 'Битола'
+      )
+      this.opstina = 'Општина Битола'
+      this.opstinaObj = result[0]
     }
     // this.message = 'updated'
     // console.log(this.$el.textContent) // 'not updated'
@@ -563,7 +567,11 @@ export default {
     // console.log(this.$el.textContent) // 'updated'
   },
   async asyncData({ store }) {
-    if(store.state.municipality.municipality==null || store.state.municipality.municipality=='') return;
+    if (
+      store.state.municipality.municipality == null ||
+      store.state.municipality.municipality == ''
+    )
+      return
     else {
       let arr = store.state.municipality.municipality
       // console.log(arr.name)
@@ -585,7 +593,6 @@ export default {
       }
     }
     // await store.getters.getMunicipality;
-    
   },
 }
 </script>

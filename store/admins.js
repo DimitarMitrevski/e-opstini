@@ -77,4 +77,12 @@ export const actions = {
         }
       })
   },
+  signOutGlobal() {
+    firebase
+      .auth()
+      .signOut()
+      .then(() => {
+        this.$router.push('/')
+      })
+  },
 }
