@@ -87,9 +87,11 @@ export default {
     await store.dispatch('blogs/getSinglePost', params.id)
     let arr = store.state.blogs.blogPost
     let ops = store.state.municipality.municipalities
+    let opsT = store.state.municipality.municipality
     return {
       post: arr,
       opstini: ops,
+      opstina: opsT
     }
   },
 
