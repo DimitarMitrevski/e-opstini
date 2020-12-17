@@ -10,7 +10,7 @@
             </div>
         </header>
         <body>
-            <img v-if="post.files.length" :src="post.files[0]" style="max-height: 300px" alt="">
+            <!-- <img v-if="post.files.length" :src="post.files[0]" style="max-height: 300px" alt=""> -->
             <p class="blog-post">
                 {{post.body}}
             </p>
@@ -48,14 +48,14 @@ export default {
             opstini: []
         }
     },
-    mounted() {
-        console.log(this.post);
-        firebase.storage().refFromURL(this.post.files[0]).getMetadata()
-        .then(function(metadata) {
-            console.log(metadata)
-        })
-        .catch(e => { console.error(e) })
-    },
+    // mounted() {
+    //     console.log(this.post);
+    //     firebase.storage().refFromURL(this.post.files[0]).getMetadata()
+    //     .then(function(metadata) {
+    //         console.log(metadata)
+    //     })
+    //     .catch(e => { console.error(e) })
+    // },
     async asyncData({ params, store }){
         await store.dispatch('blogs/getSinglePost', params.id);
         let arr = store.state.blogs.blogPost;

@@ -42,7 +42,8 @@
                 tag="li"
                 v-for="(komentar, idx) in komentari" :key="idx">
                 <template #aside>
-                    <b-img blank blank-color="#abc" width="64" alt="placeholder"></b-img>
+                    <!-- <b-img blank blank-color="#abc" width="64" alt="placeholder"></b-img> -->
+                    <b-icon variant="info" scale="3" style="margin-right: 1rem; margin-top: 1.4rem;" icon="person-circle"></b-icon>
                 </template>
                 <div class="header d-flex justify-content-between align-items-center w-100">
                     <a href="#!" class="mt-1 mb-1">{{komentar.author}}</a>    
