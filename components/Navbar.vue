@@ -86,7 +86,6 @@ export default {
 <style>
 .navbar {
   z-index: 2;
-  height: 5vh;
   box-sizing: border-box;
 }
 </style>
