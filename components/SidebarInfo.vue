@@ -43,6 +43,7 @@
         </div>
         <template #footer="{ hide }">
           <div class="d-flex bg-info text-light align-items-center justify-content-center py-2">
+            <b-button class="d-block mt-4 mx-auto btn-info oh-son" size="lg" to="/municipality">Повеќе...</b-button>
             <b-button variant="warning" size="sm" @click="hide"><b-icon-x></b-icon-x></b-button>
           </div>
         </template>
@@ -77,13 +78,15 @@ export default {
 .b-sidebar-body {
   overflow: hidden;
 }
+.oh-son { display: none; }
 @media only screen and (max-height: 768px) {
   .infwrapper { height: 100%; }
-  .info-sidebar .grb { width: 95px !important; }
+  .info-sidebar .grb { width: 75px !important; }
   .info-sidebar table { font-size: .8rem; }
   .info-sidebar .b-sidebar-body { overflow-y: hidden; }
   .wrap-side { padding-top: 0 !important; }
   .infwrapper h4 { font-size: 1.1rem; }
+  .oh-son { display: block; margin: 0 !important; }
 }
 .info-sidebar table { margin-top: .5rem }
 .info-sidebar .grb {
