@@ -393,7 +393,7 @@ export default {
   },
   data() {
     return {
-      opstina: 'Општина Битола',
+      opstina: '',
       opstinaObj: {},
       file1: null,
       send: false,
@@ -545,32 +545,47 @@ export default {
       })
     },
   },
-  async mounted() {
+  async created() {
+    if (localStorage.getItem('opstina') !== null || localStorage.getItem('opstina') !== null){
+      const opsO = JSON.parse(localStorage.getItem('opstina'));
+      this.opstina = 'Општина ' + opsO.name;
+      this.opstinaObj = await opsO;
+    }
+    else {
+      const municipalities = this.$store.state.municipality.municipalities;
+      var result = municipalities.filter((municipality) => municipality.name === 'Битола');
+      this.opstina = 'Општина Битола';
+      this.opstinaObj= result[0];
+    }
     // this.message = 'updated'
     // console.log(this.$el.textContent) // 'not updated'
     // await this.$nextTick()
     // console.log(this.$el.textContent) // 'updated'
   },
   async asyncData({ store }) {
-    // await store.getters.getMunicipality;
-    let arr = store.state.municipality.municipality
-    // console.log(arr.name)
-    if (arr.length > 10) {
-      let municipalities = store.state.municipality.municipalities
-      var result = municipalities.filter(
-        (municipality) => municipality.name === arr.substr(8, arr.length)
-      )
-      console.log(result)
-      return {
-        opstina: arr,
-        opstinaObj: result[0],
-      }
-    } else {
-      return {
-        opstina: 'Општина ' + arr.name,
-        opstinaObj: arr,
+    if(store.state.municipality.municipality==null || store.state.municipality.municipality=='') return;
+    else {
+      let arr = store.state.municipality.municipality
+      // console.log(arr.name)
+      if (arr.length > 10) {
+        let municipalities = store.state.municipality.municipalities
+        var result = municipalities.filter(
+          (municipality) => municipality.name === arr.substr(8, arr.length)
+        )
+        console.log(result)
+        return {
+          opstina: arr,
+          opstinaObj: result[0],
+        }
+      } else {
+        return {
+          opstina: 'Општина ' + arr.name,
+          opstinaObj: arr,
+        }
       }
     }
+    // await store.getters.getMunicipality;
+    
   },
 }
 </script>

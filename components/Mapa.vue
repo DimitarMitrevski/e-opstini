@@ -62,7 +62,7 @@ export default {
           var info = this.data.find(o => o.name === this.title);
           this.$emit('selected-municipality', info);
           this.$store.dispatch('municipality/setSelectedMunicipality', info);
-          // console.log(this.$store.state.municipality.municipality.name);
+          localStorage.setItem('opstina',  JSON.stringify(info));
       }
   }
 }

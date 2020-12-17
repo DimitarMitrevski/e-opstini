@@ -263,7 +263,6 @@ export default {
       selectedOpstina: null,
       optionsOpstini: [
         { value: null, text: 'Изберете една оштина' },
-        { value: this.opstina, text: this.opstina },
         { value: 'Општина Битола', text: 'Општина Битола' },
         { value: 'Општина Валандово', text: 'Општина Валандово' },
         { value: 'Општина Гостивар', text: 'Општина Гостивар' },
@@ -286,9 +285,13 @@ export default {
       max1: new Date(),
     }
   },
-  created() {
-    this.selectedOpstina = this.opstina
-    this.unfilteredItems = this.items
+created() {
+    var result = this.optionsOpstini.filter((opstina) => opstina.value === this.opstina);
+    console.log(result)
+    if(!result)  
+    this.optionsOpstini.push({value: this.opstina, text: this.opstina})
+    this.selectedOpstina = this.opstina 
+    this.unfilteredItems = this.items;
   },
   methods: {
     async editDate(date) {

@@ -581,7 +581,7 @@ export default {
       this.sideCnt = payload;
       this.selectedPath = payload.name;
       if(!this.openSidebar) this.$root.$emit('bv::toggle::collapse', 'sidebar-right');
-    }
+    },
   },
   watch:{
     openSidebar (oldVal, newVal) {
@@ -590,7 +590,10 @@ export default {
   },
   created(){
     this.$store.dispatch('municipality/setAllMunicipalities', this.opstini);
-  }
+  },
+  // async mounted(){
+  //    localStorage.clear();
+  // }
 }
 </script>
 

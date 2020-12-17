@@ -4,7 +4,7 @@
         <!-- <template #header>
           <b-icon-x></b-icon-x>
         </template> -->
-        <div class="d-flex flex-column justify-content-center align-items-center h-100 p-3">
+        <div class="d-flex flex-column justify-content-center align-items-center h-100 p-3 wrap-side">
           <div class="infwrapper">
             <h4 class="text-center">Општина {{content ? content.name : 'Sidebar'}}</h4>
             <img class="grb" :src="content.grbUrl" alt="">
@@ -14,7 +14,7 @@
               ]"></b-table>
             </div>
             <div class="chart-wrap" v-if="content.prihodi && content.rashodi">
-              <column-chart width="250px" :colors="['#74dace']" :data="[[`Приходи:`, content.prihodi], [`Расходи:`, content.rashodi]]"></column-chart>
+              <column-chart width="200px" height="150px" :colors="['#74dace']" :data="[[`Приходи:`, content.prihodi], [`Расходи:`, content.rashodi]]"></column-chart>
             </div>
             <b-button class="d-block mt-4 mx-auto btn-info" size="lg" to="/municipality">Повеќе...</b-button>
           </div>
@@ -55,12 +55,22 @@ export default {
 .b-sidebar-body {
   overflow: hidden;
 }
+@media only screen and (max-height: 768px) {
+  .infwrapper { height: 100%; }
+  .info-sidebar .grb { width: 95px !important; }
+  .info-sidebar table { font-size: .8rem; }
+  .info-sidebar .b-sidebar-body { overflow-y: hidden; }
+  .wrap-side { padding-top: 0 !important; }
+  .infwrapper h4 { font-size: 1.1rem; }
+}
+
 .info-sidebar .grb {
-  width: 150px;
+  width: 140px;
   display: block;
   margin: auto;
   height: auto;
 }
+
 .info-sidebar .chart-wrap > *, .info-sidebar .table-wrap > * {
   margin: 2rem auto 0
 }
