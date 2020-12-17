@@ -200,7 +200,25 @@ Password must - Have at least 8 characters - Contain characters from at least 3 
       options: [{ value: '+389', text: '+389' }],
     }
   },
+  async created() {
+    this.$store.dispatch('municipality/setAllMunicipalities', this.opstini)
+    await firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        this.callStore(user.uid)
+      } else {
+        this.$router.push('/singIn')
+      }
+    })
+  },
   methods: {
+    async callStore(uid) {
+      console.log(uid, 'log form 89')
+      await this.$store.dispatch('users/getUser', uid)
+      const userDatas = await this.$store.state.users.userInfo
+      this.userID = uid
+      this.userDatas = userDatas
+      console.log(this.userDatas)
+    },
     async onSubmit(evt) {
       evt.preventDefault()
       const contactTel = this.selected + this.form.contactTel

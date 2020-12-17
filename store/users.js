@@ -5,6 +5,7 @@ require('firebase/auth')
 export const state = () => ({
   userID: '',
   userInfo: {},
+  isLoggedIn: false,
 })
 
 export const mutations = {
@@ -13,6 +14,9 @@ export const mutations = {
   },
   setUserID(state, payload) {
     state.userID = payload
+  },
+  loggedIn(state, payload) {
+    state.isLoggedIn = payload
   },
 }
 
@@ -51,6 +55,23 @@ export const actions = {
           state.commit('getInfo', doc.data())
         }
       })
+  },
+  async getUser1(state) {
+    var user = firebase.auth().currentUser
+    if (user) {
+      state.commit(loggedIn, true)
+      var uid = user.uid
+      await db
+        .collection('Users')
+        .doc(uid)
+        .get()
+        .then(function (doc) {
+          if (doc.exists) {
+            state.commit('getInfo', doc.data())
+          }
+        })
+    }
+    state.commit(loggedIn, false)
   },
 }
 

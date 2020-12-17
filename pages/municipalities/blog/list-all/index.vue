@@ -20,9 +20,11 @@
             </div>
         </b-container>
     </div>
+
 </template>
 
 <script>
+import firebase from 'firebase/app'
 export default {
     data(){
         return {
@@ -49,6 +51,14 @@ export default {
     },
     async created() {
         this.currentBlogs=this.allBlogs.slice(0, this.pageSize);
+        await firebase.auth().onAuthStateChanged((user) => {
+          if (user) {
+            this.callStore(user.uid)
+          } else {
+            this.$router.push('/singIn')
+          }
+        })
+
         if(!localStorage.getItem('opstina') || !this.$store.state.municipality.municipality) {
             const idx = Math.floor(Math.random() * this.opstini.length);
             this.opstina = this.opstini[idx]
@@ -57,39 +67,57 @@ export default {
         }
     },
     methods: {
-        next(){
-            if(this.currentPage == this.noPages-1) return;
-            this.currentPage++;
-            this.currentBlogs=this.allBlogs.slice(this.pageSize*this.currentPage, (this.pageSize*this.currentPage+this.pageSize));
-        },
-        previous(){
-            if(this.currentPage == 0) return;
-            this.currentPage--;
-            this.currentBlogs=this.allBlogs.slice(this.pageSize*this.currentPage, (this.pageSize*this.currentPage+this.pageSize));
-        },
-        selectPage(i){
-            this.currentPage = i;
-            this.currentBlogs=this.allBlogs.slice(this.pageSize*this.currentPage, (this.pageSize*this.currentPage+this.pageSize));
-        }
-    }
+      async callStore(uid) {
+      console.log(uid, 'log form 89')
+      await this.$store.dispatch('users/getUser', uid)
+      const userDatas = await this.$store.state.users.userInfo
+      this.userID = uid
+      this.userDatas = userDatas
+      console.log(this.userDatas)
+    },
+
+    next() {
+      if (this.currentPage == this.noPages - 1) return
+      this.currentPage++
+      this.currentBlogs = this.allBlogs.slice(
+        this.pageSize * this.currentPage,
+        this.pageSize * this.currentPage + this.pageSize
+      )
+    },
+    previous() {
+      if (this.currentPage == 0) return
+      this.currentPage--
+      this.currentBlogs = this.allBlogs.slice(
+        this.pageSize * this.currentPage,
+        this.pageSize * this.currentPage + this.pageSize
+      )
+    },
+    selectPage(i) {
+      this.currentPage = i
+      this.currentBlogs = this.allBlogs.slice(
+        this.pageSize * this.currentPage,
+        this.pageSize * this.currentPage + this.pageSize
+      )
+    },
+  },
 }
 </script>
 
 <style>
-.blog-list-wrap{
-    margin-top: 2rem;
+.blog-list-wrap {
+  margin-top: 2rem;
 }
 .blog-list-wrap .container > * {
-    margin-bottom: 2rem;
+  margin-bottom: 2rem;
 }
-.blog-list-wrap .page-item .page-link{
-    box-shadow: none !important;
+.blog-list-wrap .page-item .page-link {
+  box-shadow: none !important;
 }
 .blog-list-wrap .page-item:not(.active) .page-link {
-    color: #17a2b8 !important;
+  color: #17a2b8 !important;
 }
 .blog-list-wrap .page-item.active .page-link {
-    background: #17a2b8 !important;
-    border-color: #17a2b8 !important;
+  background: #17a2b8 !important;
+  border-color: #17a2b8 !important;
 }
 </style>

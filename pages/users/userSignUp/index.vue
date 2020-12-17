@@ -7,6 +7,26 @@
 <script>
 export default {
   name: 'userSignUp',
+  async created() {
+    this.$store.dispatch('municipality/setAllMunicipalities', this.opstini)
+    await firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        this.callStore(user.uid)
+      } else {
+        this.$router.push('/singIn')
+      }
+    })
+  },
+  methods: {
+    async callStore(uid) {
+      console.log(uid, 'log form 89')
+      await this.$store.dispatch('users/getUser', uid)
+      const userDatas = await this.$store.state.users.userInfo
+      this.userID = uid
+      this.userDatas = userDatas
+      console.log(this.userDatas)
+    },
+  },
 }
 </script>
 <style scoped>

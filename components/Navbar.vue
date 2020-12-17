@@ -7,6 +7,9 @@
       <b-navbar-nav>
         <b-nav-item to="/municipalities/blog/list-all">Блог</b-nav-item>
       </b-navbar-nav>
+      <b-navbar-nav>
+        <b-nav-item @click="dataClick">Data</b-nav-item>
+      </b-navbar-nav>
 
       <!-- Right aligned nav items -->
       <b-navbar-nav class="ml-auto">
@@ -30,12 +33,17 @@
         <b-nav-item-dropdown right>
           <!-- Using 'button-content' slot -->
           <template #button-content>
-            <em>User</em>
+            <em>{{ userDatas.imePrezime ? userDatas.imePrezime : '' }}</em>
           </template>
-          <b-dropdown-item v-if="isLoggedIn" href="/users/profile">{{
-            userInfo.imePrezime
-          }}</b-dropdown-item>
-          <b-dropdown-item @click="odjavi">Sign Out</b-dropdown-item>
+          <b-dropdown-item v-if="isLoggedIn1" href="/users/profile"
+            >Профил</b-dropdown-item
+          >
+          <b-dropdown-item v-else href="/singIn">Најави Се </b-dropdown-item>
+
+          <b-dropdown-item v-if="isLoggedIn1" @click="odjavi"
+            >Одјави се</b-dropdown-item
+          >
+          <b-dropdown-item v-else @click="odjavi"></b-dropdown-item>
         </b-nav-item-dropdown>
       </b-navbar-nav>
     </b-collapse>
@@ -48,22 +56,25 @@ export default {
   data() {
     return {
       isLoggedIn1: false,
-      userInfo: {},
+      userr: {},
     }
   },
-  async created() {
-    this.isLoggedIn()
+  mounted() {
+    this.isLoggedIn1 = this.$store.state.users.isLoggedIn
   },
-  async asyncData() {},
+  computed: {
+    userDatas() {
+      this.$store.dispatch('users/getUser1')
+      const userDatas = this.$store.state.users.userInfo
+      return userDatas
+    },
+  },
   methods: {
-    isLoggedIn() {
-      firebase.auth().onAuthStateChanged(function (user) {
-        if (user) {
-          return { isLoggedIn1: true }
-        } else {
-          this.isLoggedIn1 = false
-        }
-      })
+    dataClick() {
+      // this.userDatas.then(function (result) {
+      //   console.log(result, 'res')
+      // })
+      console.log(this.userDatas.imePrezime)
     },
     odjavi() {
       this.$store.dispatch('admins/signOutGlobal')
