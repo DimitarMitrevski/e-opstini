@@ -119,14 +119,6 @@
 <script>
 import firebase from '~/plugins/firebase'
 export default {
-<<<<<<< Updated upstream
-    data() {
-        return {
-            post: {},
-            filetype: '',
-            opstina: {}
-        }
-=======
   data() {
     return {
       post: {},
@@ -146,9 +138,7 @@ export default {
   async asyncData({ params, store }) {
     await store.dispatch('blogs/getSinglePost', params.id)
     let arr = store.state.blogs.blogPost
-
     let ops = store.state.municipality.municipalities
-
     return {
       post: arr,
       opstini: ops,
@@ -169,6 +159,11 @@ export default {
   },
 
   methods: {
+    randomDate(start, end) {
+      return new Date(
+        start.getTime() + Math.random() * (end.getTime() - start.getTime())
+      )
+    },
     async callStore(uid) {
       console.log(uid, 'log form 89')
       await this.$store.dispatch('users/getUser', uid)
@@ -176,30 +171,8 @@ export default {
       this.userID = uid
       this.userDatas = userDatas
       console.log(this.userDatas)
->>>>>>> Stashed changes
     },
-    async asyncData({ params, store }){
-        await store.dispatch('blogs/getSinglePost', params.id);
-        let arr = store.state.blogs.blogPost;
-        let ops = store.state.municipality.municipality;
-        return { 
-            post: arr,
-            opstina: ops
-        }
-    },
-    methods: {
-        randomDate(start, end) {
-            return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
-        },
-        async callStore(uid) {
-          console.log(uid, 'log form 89')
-          await this.$store.dispatch('users/getUser', uid)
-          const userDatas = await this.$store.state.users.userInfo
-          this.userID = uid
-          this.userDatas = userDatas
-          console.log(this.userDatas)
-        },
-    }
+  },
 }
 </script>
 

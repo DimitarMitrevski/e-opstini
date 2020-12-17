@@ -1,87 +1,89 @@
 <template>
-    <div class="blog-list-wrap">
-        <b-container>
-            <h2>Објави од Општините</h2>
-            <b-card 
-                v-for="(blog, k) in currentBlogs" :key="k"
-                :title="blog.title">
-                <small class="text-secondary">Објава од: Општина {{opstina.name}}</small>
-                <b-card-text>
-                    {{blog.body}}
-                </b-card-text>
-                <b-button :to="'/municipalities/blog/view/'+blog.title" variant="info">Отворија објавата</b-button>
-            </b-card>
-            <div class="d-flex justify-content-center">
-                <ul class="pagination">
-                    <li class="page-item"><a class="page-link" @click.prevent="previous" href="#">Previous</a></li>
-                    <li class="page-item" v-for="(i,k) in noPages" :key="k" @click="selectPage(i-1)" :class="{ active :  i === currentPage+1 }"><a class="page-link" href="#!">{{i}}</a></li>
-                    <li class="page-item"><a class="page-link" @click.prevent="next" href="#">Next</a></li>
-                </ul>
-            </div>
-        </b-container>
-    </div>
-
+  <div class="blog-list-wrap">
+    <b-container>
+      <h2>Објави од Општините</h2>
+      <b-card v-for="(blog, k) in currentBlogs" :key="k" :title="blog.title">
+        <small class="text-secondary"
+          >Објава од: Општина {{ opstina.name }}</small
+        >
+        <b-card-text>
+          {{ blog.body }}
+        </b-card-text>
+        <b-button :to="'/municipalities/blog/view/' + blog.title" variant="info"
+          >Отворија објавата</b-button
+        >
+      </b-card>
+      <div class="d-flex justify-content-center">
+        <ul class="pagination">
+          <li class="page-item">
+            <a class="page-link" @click.prevent="previous" href="#">Previous</a>
+          </li>
+          <li
+            class="page-item"
+            v-for="(i, k) in noPages"
+            :key="k"
+            @click="selectPage(i - 1)"
+            :class="{ active: i === currentPage + 1 }"
+          >
+            <a class="page-link" href="#!">{{ i }}</a>
+          </li>
+          <li class="page-item">
+            <a class="page-link" @click.prevent="next" href="#">Next</a>
+          </li>
+        </ul>
+      </div>
+    </b-container>
+  </div>
 </template>
 
 <script>
 import firebase from 'firebase/app'
 export default {
-    data(){
-        return {
-            allBlogs: [],
-            currentBlogs: [],
-            pageSize: 4,
-            currentPage: 0,
-            noPages: 0,
-            opstini: [],
-            opstina: {}
-        }
-    },
-    async asyncData({store}){
-        await store.dispatch('blogs/getAllBlogPosts');
-        let arr = store.state.blogs.blogPosts;
-        let ops = store.state.municipality.municipalities;
-        let opsT = store.state.municipality.municipality;
-        return { 
-            allBlogs: arr,
-            noPages: Math.ceil(arr.length/4),
-            opstini: ops,
-            opstina: opsT
-        }
-    },
-    async created() {
-        this.currentBlogs=this.allBlogs.slice(0, this.pageSize);
-        await firebase.auth().onAuthStateChanged((user) => {
-          if (user) {
-            this.callStore(user.uid)
-          } else {
-            this.$router.push('/singIn')
-          }
-        })
-
-<<<<<<< Updated upstream
-        if(!localStorage.getItem('opstina') || !this.$store.state.municipality.municipality) {
-            const idx = Math.floor(Math.random() * this.opstini.length);
-            this.opstina = this.opstini[idx]
-            this.$store.dispatch('municipality/setSelectedMunicipality', this.opstina);
-            localStorage.setItem('opstina', JSON.stringify(this.opstina))
-        }
-    },
-    methods: {
-      async callStore(uid) {
-=======
+  data() {
+    return {
+      allBlogs: [],
+      currentBlogs: [],
+      pageSize: 4,
+      currentPage: 0,
+      noPages: 0,
+      opstini: [],
+      opstina: {},
+    }
+  },
+  async asyncData({ store }) {
+    await store.dispatch('blogs/getAllBlogPosts')
+    let arr = store.state.blogs.blogPosts
+    let ops = store.state.municipality.municipalities
+    let opsT = store.state.municipality.municipality
+    return {
+      allBlogs: arr,
+      noPages: Math.ceil(arr.length / 4),
+      opstini: ops,
+      opstina: opsT,
+    }
+  },
   async created() {
     this.currentBlogs = this.allBlogs.slice(0, this.pageSize)
     await firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         this.callStore(user.uid)
       } else {
+        this.$router.push('/singIn')
       }
     })
+    if (
+      !localStorage.getItem('opstina') ||
+      !this.$store.state.municipality.municipality
+    ) {
+      const idx = Math.floor(Math.random() * this.opstini.length)
+      this.opstina = this.opstini[idx]
+      this.$store.dispatch('municipality/setSelectedMunicipality', this.opstina)
+      localStorage.setItem('opstina', JSON.stringify(this.opstina))
+    }
   },
+
   methods: {
     async callStore(uid) {
->>>>>>> Stashed changes
       console.log(uid, 'log form 89')
       await this.$store.dispatch('users/getUser', uid)
       const userDatas = await this.$store.state.users.userInfo
