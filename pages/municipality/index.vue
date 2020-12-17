@@ -494,10 +494,10 @@ export default {
       this.form.file = ''
       this.file1 = null
       this.send = true
-      this.$nextTick(() => {
-        setTimeout(function () {
+      this.$nextTick(function () {
+        setTimeout(() => {
           this.send = false
-        }, 3000)
+        }, 2500)
       })
     },
     uploadFile(files) {

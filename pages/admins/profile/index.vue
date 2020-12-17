@@ -24,7 +24,14 @@
           </b-col>
           <b-col align-h="center">
             <div class="block">
-              <button class="post" @click="post = true">
+              <button
+                class="post"
+                @click="
+                  () => {
+                    $router.push('/municipalities/blog/create')
+                  }
+                "
+              >
                 Објави Пост
                 <b-icon icon="box-arrow-in-up-right" scale="1"> </b-icon>
               </button>
@@ -181,8 +188,6 @@ export default {
   color: cadetblue;
 }
 .post {
-  width: 30vw;
-  height: 7vw;
   border: none;
   border-radius: 10px;
   color: white;

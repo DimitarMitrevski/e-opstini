@@ -1,5 +1,47 @@
 <template>
   <div>
+    <b-modal
+      id="my-modal"
+      v-b-modal.my-modal
+      size="xl"
+      title="Испратете порака до админот"
+      centered
+    >
+      <b-form @submit="onSubmit">
+        <b-form-group id="input-group-2" label="Порака" label-for="input-2">
+          <b-form-input
+            id="input-2"
+            v-model="form.name"
+            placeholder="Внесете го предметот на пораката"
+            required
+          ></b-form-input>
+        </b-form-group>
+        <b-form-group label="Порака">
+          <b-form-textarea
+            id="textarea"
+            v-model="form.body"
+            placeholder="Напишете порака"
+            rows="6"
+          ></b-form-textarea>
+        </b-form-group>
+        <b-form-group>
+          <b-button type="submit" variant="primary">Испратете порака</b-button>
+          <p v-if="message">Успешно испратена порака...</p>
+        </b-form-group>
+      </b-form>
+      <template #modal-footer>
+        <div class="w-100">
+          <b-button
+            size="sm"
+            class="float-right"
+            @click="$bvModal.hide('my-modal')"
+          >
+            Назад
+          </b-button>
+        </div>
+        <div></div>
+      </template>
+    </b-modal>
     <div class="adminProfileCont">
       <div class="darken" v-if="post"></div>
       <b-container fluid class="profileTab">
@@ -28,11 +70,16 @@
               </b-button>
             </div>
             <div class="newAdmin">
-              <b-button v-b-modal.modal-lg variant="primary" block>
+              <b-button
+                v-b-modal.my-modal
+                variant="primary"
+                block
+                @click="post = !post"
+              >
                 Прати порака до админ
               </b-button>
               <b-button
-                href="/admins/createSektorAdmin"
+                href="/municipality"
                 v-b-modal.modal-lg
                 variant="light"
                 block
@@ -93,7 +140,14 @@ export default {
       datas: {},
       dataFire: {},
       modal: false,
+      post: false,
       userID: {},
+      message: false,
+      form: {
+        email: '',
+        name: '',
+        body: '',
+      },
     }
   },
   async created() {
@@ -104,6 +158,18 @@ export default {
         this.$router.push('/signInSectorAdmin')
       }
     })
+  },
+  watch: {
+    message(newVal, oldVal) {
+      console.log(oldVal, newVal, 'line 163')
+      if (newVal) {
+        this.$nextTick(function () {
+          setTimeout(() => {
+            this.message = false
+          }, 2000)
+        })
+      }
+    },
   },
   methods: {
     scroll() {
@@ -125,6 +191,21 @@ export default {
       const datas = await this.$store.state.admins.sectorAdminInfo
       const userID = uid
       this.datas = datas
+    },
+    onSubmit(event) {
+      event.preventDefault()
+      // Reset our form values
+      this.form.email = ''
+      this.form.name = ''
+      this.form.body = ''
+      this.message = true
+
+      this.timeOut()
+    },
+    timeOut() {
+      setTimeout(function () {
+        this.message = false
+      }, 1000)
     },
   },
 }
@@ -173,8 +254,6 @@ export default {
   color: cadetblue;
 }
 .post {
-  width: 30vw;
-  height: 7vw;
   border: none;
   border-radius: 10px;
   color: white;
