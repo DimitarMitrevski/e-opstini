@@ -5,7 +5,7 @@
 
     <b-collapse id="nav-collapse" is-nav>
       <b-navbar-nav>
-        <b-nav-item to="/municipalities/blog/list-all">Блог</b-nav-item>
+        <b-nav-item to="/municipalities/blog/list-all">Објави на општините</b-nav-item>
       </b-navbar-nav>
       <b-navbar-nav> </b-navbar-nav>
 
