@@ -25,7 +25,9 @@
           </b-col>
           <b-col align-h="center">
             <div class="block">
-              <button class="post" @click="post = true">Објави Пост</button>
+              <button class="post text-center" to="/municipalities/blog/create">
+                Објави Пост
+              </button>
               <b-icon icon="box-arrow-in-up-right" scale="2"> </b-icon>
             </div>
             <div class="newAdmin">
@@ -182,8 +184,6 @@ export default {
   color: cadetblue;
 }
 .post {
-  width: 15vw;
-  height: 3vw;
   border: none;
   border-radius: 10px;
   color: white;
