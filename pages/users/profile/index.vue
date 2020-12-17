@@ -99,7 +99,7 @@ export default {
 
   methods: {
     async showNovosti() {
-      await this.$store.dispatch(
+      this.$store.dispatch(
         'municipality/setSelectedMunicipality',
         this.userDatas.city
       )
