@@ -3,7 +3,7 @@
     <div class="circle"></div>
     <div class="signIn">
       <b-form id="form" @submit.prevent="onSubmit">
-        <h3 class="logInText">Логирај се како Корисник</h3>
+        <h2 class="text-center mb-4">Логирај се како Корисник</h2>
         <b-form-group id="input-group-1" label="E-mail" label-for="input-2">
           <b-form-input
             id="input-2"

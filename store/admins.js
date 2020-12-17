@@ -48,7 +48,9 @@ export const actions = {
         db.collection('SectorAdmins').doc(usr.uid).set(payload)
         usr
           .sendEmailVerification()
-          .then(function () {})
+          .then(function () {
+            document.loaction.href = '/sectorAdmins'
+          })
           .catch(function (error) {})
       })
   },
