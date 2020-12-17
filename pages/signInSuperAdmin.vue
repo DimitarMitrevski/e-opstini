@@ -3,14 +3,14 @@
     <div class="circle"></div>
     <div class="signIn">
       <b-form id="form" @submit.prevent="onSubmit">
-        <h3 class="logInText">Логирај Се, Супер Админ</h3>
+        <h3 class="logInText">Логирај се како Супер Админ</h3>
         <b-form-group id="input-group-1" label="E-mail" label-for="input-2">
           <b-form-input
             id="input-2"
             v-model="username"
             maxlength="50"
             required
-            :placeholder="'Внеси име и презиме'"
+            :placeholder="'Внеси е-маил'"
           ></b-form-input>
         </b-form-group>
 

@@ -8,7 +8,7 @@
               <b-icon icon="file-person" variant="light" scale="11"></b-icon>
             </b-col>
             <b-col cols="8">
-              <h1>{{ userDatas.imePrezime }}</h1>
+              <h2>{{ userDatas.imePrezime }}</h2>
               <p>Адреса: {{ userDatas.adress }}</p>
               <p>Место на живеење: {{ userDatas.city }}</p>
               <p>Број на телефон: {{ userDatas.contactTel }}</p>
@@ -19,11 +19,9 @@
           <div class="block">
             <h3 @click="showNovosti">
               Разгледај Новости за {{ userDatas.city }}
+              <b-icon icon="info-circle"></b-icon>
             </h3>
           </div>
-          <b-button block variant="light" class="signOut" @click="odjava"
-            >Одјави се</b-button
-          >
         </b-col>
       </b-row>
       <div class="underline"></div>
@@ -87,7 +85,7 @@ export default {
       if (user) {
         this.callStore(user.uid)
       } else {
-        console.log('User is not signed out!')
+        this.$router.push('/singIn')
       }
     })
     // console.log(this.userID)
@@ -164,6 +162,7 @@ export default {
 .block:hover {
   background: white;
   color: cadetblue;
+  cursor: pointer;
 }
 .underline {
   width: 95vw;
@@ -217,6 +216,7 @@ export default {
 .rect1:hover {
   background: White;
   color: cadetblue;
+  cursor: pointer;
 }
 .row {
   margin: 0;

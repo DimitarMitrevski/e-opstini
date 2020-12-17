@@ -1,6 +1,5 @@
 <template>
   <div>
-    <PostPopUp :post="post" v-on:close-modal="post = false" />
     <div class="adminProfileCont">
       <div class="darken" v-if="post"></div>
       <b-container fluid class="profileTab">
@@ -23,10 +22,10 @@
           </b-col>
           <b-col align-h="center">
             <div class="block">
-              <button class="post" @click="post = true">
+              <b-button class="post" to="/municipalities/blog/create">
                 Објави Пост
                 <b-icon icon="box-arrow-in-up-right" scale="1"> </b-icon>
-              </button>
+              </b-button>
             </div>
             <div class="newAdmin">
               <b-button v-b-modal.modal-lg variant="primary" block>
@@ -40,9 +39,6 @@
               >
                 Отвори профил на општина
               </b-button>
-              <b-button variant="light" block @click="odjava"
-                >Одјави се</b-button
-              >
             </div>
           </b-col>
         </b-row>
@@ -65,8 +61,10 @@
         </b-col>
         <b-col>
           <div class="rects">
-            <h3>Буџет на Општина Битола во последните 3 години</h3>
+            <h3>Буџет на {{ datas.city }} во последните 3 години</h3>
             <column-chart
+              width="95%"
+              height="95%"
               :colors="['#54C9BB']"
               :data="[
                 ['2018', 100000],
@@ -77,9 +75,12 @@
               ytitle="Буџет"
             ></column-chart>
           </div>
-          <div class="rects1"><h3>Јавни Набавки</h3></div>
+          <div class="rects1" @click="scroll"><h3>Јавни Набавки</h3></div>
         </b-col>
       </b-row>
+      <div class="popUp" v-if="modal" style="margin-bottom: 10px">
+        <Nabavki :opstina="datas.city" />
+      </div>
     </div>
   </div>
 </template>
@@ -91,8 +92,8 @@ export default {
     return {
       datas: {},
       dataFire: {},
+      modal: false,
       userID: {},
-      post: false,
     }
   },
   async created() {
@@ -100,11 +101,21 @@ export default {
       if (user) {
         this.getdispatch(user.uid)
       } else {
-        console.log('User is not signed out!')
+        this.$router.push('/signInSectorAdmin')
       }
     })
   },
   methods: {
+    scroll() {
+      this.modal = !this.modal
+      setTimeout(function () {
+        window.scrollTo({
+          top: window.screen.height - 20,
+
+          behavior: 'smooth',
+        })
+      }, 250)
+    },
     odjava() {
       firebase.auth().signOut()
       this.$router.push('/')
