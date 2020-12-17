@@ -103,6 +103,14 @@ export default {
         'municipality/setSelectedMunicipality',
         this.userDatas.city
       )
+      let municipalities = this.$store.state.municipality.municipalities
+      var result = municipalities.filter(
+        (municipality) =>
+          municipality.name ===
+          this.userDatas.city.substr(8, this.userDatas.city.length)
+      )
+      localStorage.setItem('opstina', JSON.stringify(result[0]))
+      console.log(localStorage.getItem('opstina'), 'line 114')
       this.$router.push('/municipality')
     },
     scroll() {

@@ -4,19 +4,11 @@
       <b-row>
         <b-col>
           <label for="selectOpstini">Изберете Општина</label>
-          <b-form-select
-            name="selectOpstini"
-            v-model="selectedOpstina"
-            :options="optionsOpstini"
-          ></b-form-select>
+          <b-form-select name="selectOpstini" v-model="selectedOpstina" :options="optionsOpstini"></b-form-select>
         </b-col>
         <b-col>
           <label for="selectOpstini">Број на резулати по страна</label>
-          <b-form-select
-            name="selectOpstini"
-            v-model="perPage"
-            :options="resultsPerPage"
-          ></b-form-select>
+          <b-form-select name="selectOpstini" v-model="perPage" :options="resultsPerPage"></b-form-select>
         </b-col>
         <b-col>
           <label for="datepicker-dateformat1">Од</label>
@@ -31,8 +23,6 @@
             :locale="locale"
             v-model="dataOd"
             reset-button
-            :min="min"
-            :max="max"
             @click="getDataOd(dataOd)"
           ></b-form-datepicker>
         </b-col>
@@ -47,8 +37,6 @@
             }"
             v-model="dataDo"
             reset-button
-            :min="min1"
-            :max="max1"
             v-bind="labels[locale] || {}"
             :locale="locale"
           ></b-form-datepicker>
@@ -77,16 +65,29 @@
             <h3 class="h3">Направени набавки за {{ selectedOpstina }}</h3>
           </template>
         </b-table>
-        <p v-else style="font-size: 1.5rem">
-          Немате избрано општина, ве молиме изберете од мениот погоре.
-        </p>
+        <p
+          v-else
+          style="font-size: 1.5rem"
+        >Немате избрано општина, ве молиме изберете од мениот погоре.</p>
       </b-row>
-      <b-pagination
-        v-model="currentPage"
-        :total-rows="rows"
-        :per-page="perPage"
-        aria-controls="my-table"
-      ></b-pagination>
+      <b-row>
+        <b-col>
+          <b-pagination
+            v-model="currentPage"
+            :total-rows="rows"
+            :per-page="perPage"
+            aria-controls="my-table"
+          ></b-pagination>
+        </b-col>
+        <b-col cols="3">
+          <a hrerf="#!">
+            <span
+              style="margin: 10px; text-decoration:underline; cursor:pointer;"
+            >Превземи ја табелата</span>
+            <b-icon icon="table" variant="light" scale="2"></b-icon>
+          </a>
+        </b-col>
+      </b-row>
     </b-container>
   </div>
 </template>
@@ -285,13 +286,15 @@ export default {
       max1: new Date(),
     }
   },
-created() {
-    var result = this.optionsOpstini.filter((opstina) => opstina.value === this.opstina);
+  async mounted() {
+    var result = this.optionsOpstini.filter(
+      (opstina) => opstina.value === this.opstina
+    )
     console.log(result)
-    if(!result)  
-    this.optionsOpstini.push({value: this.opstina, text: this.opstina})
-    this.selectedOpstina = this.opstina 
-    this.unfilteredItems = this.items;
+    if (result.length === 0)
+      this.optionsOpstini.push({ value: this.opstina, text: this.opstina })
+    this.selectedOpstina = this.opstina
+    this.unfilteredItems = this.items
   },
   methods: {
     async editDate(date) {
@@ -307,7 +310,7 @@ created() {
       this.dataDo = null
       if (newVal != null) {
         this.items = this.unfilteredItems
-        this.min1 = newVal
+        this.min1 = new Date(newVal)
         this.items = this.items.filter(function (item) {
           let arrDate = item.Датум_на_договор.split('.')
           let swtVal = arrDate[0]
@@ -333,7 +336,7 @@ created() {
       this.dataOd = null
       if (newVal != null) {
         this.items = this.unfilteredItems
-        this.max = newVal
+        this.max = new Date(newVal)
         this.items = this.items.filter(function (item) {
           let arrDate = item.Датум_на_договор.split('.')
           let swtVal = arrDate[0]
