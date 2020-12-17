@@ -84,12 +84,12 @@ export default {
     methods: {
         submitComment(){
             if(!this.novKomentar.author || !this.novKomentar.text ) return; 
-            this.komentari.push({author: this.novKomentar.author, 
-                                 text: this.novKomentar.text, 
-                                 file: this.novKomentar.file,
-                                 fileExt: this.novKomentar.fileExt,
-                                 fileType: this.novKomentar.fileType,
-                                 fileName: this.novKomentar.fileName});
+            this.komentari.unshift({author: this.novKomentar.author, 
+                                    text: this.novKomentar.text, 
+                                    file: this.novKomentar.file,
+                                    fileExt: this.novKomentar.fileExt,
+                                    fileType: this.novKomentar.fileType,
+                                    fileName: this.novKomentar.fileName});
             this.novKomentar.author = this.novKomentar.text = this.novKomentar.file = null;
         },
         onFileInput(event) {    	   
