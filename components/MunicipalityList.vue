@@ -7,7 +7,9 @@
             
             button>
                 {{i.name}} 
-                <b-badge variant="info" :class="i.color" pill>{{i.indeks}}</b-badge>
+                <b-badge variant="info" :class="i.color" pill
+                v-b-tooltip.hover title="Индекс на општината."
+                >{{i.indeks}}</b-badge>
             </b-list-group-item>
         </b-list-group>
     </div>
