@@ -63,13 +63,6 @@ export default {
     }
   },
   async created() {
-    this.currentBlogs = this.allBlogs.slice(0, this.pageSize)
-    await firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
-        this.callStore(user.uid)
-      } else {
-      }
-    })
     if (
       !localStorage.getItem('opstina') ||
       !this.$store.state.municipality.municipality
@@ -79,6 +72,15 @@ export default {
       this.$store.dispatch('municipality/setSelectedMunicipality', this.opstina)
       localStorage.setItem('opstina', JSON.stringify(this.opstina))
     }
+    this.currentBlogs = this.allBlogs.slice(0, this.pageSize)
+    
+    await firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        this.callStore(user.uid)
+      } else {
+      }
+    })
+    
   },
 
   methods: {
