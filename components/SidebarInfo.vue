@@ -78,7 +78,7 @@ export default {
 .b-sidebar-body {
   overflow: hidden;
 }
-.oh-son { display: none; }
+.oh-son { display: none !important; }
 @media only screen and (max-height: 768px) {
   .infwrapper { height: 100%; }
   .info-sidebar .grb { width: 75px !important; }
@@ -86,7 +86,7 @@ export default {
   .info-sidebar .b-sidebar-body { overflow-y: hidden; }
   .wrap-side { padding-top: 0 !important; }
   .infwrapper h4 { font-size: 1.1rem; }
-  .oh-son { display: block; margin: 0 !important; }
+  .oh-son { display: block !important; margin: 0 !important; }
 }
 .info-sidebar table { margin-top: .5rem }
 .info-sidebar .grb {
