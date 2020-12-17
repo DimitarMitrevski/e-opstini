@@ -285,13 +285,15 @@ export default {
       max1: new Date(),
     }
   },
-created() {
-    var result = this.optionsOpstini.filter((opstina) => opstina.value === this.opstina);
+  async mounted() {
+    var result = this.optionsOpstini.filter(
+      (opstina) => opstina.value === this.opstina
+    )
     console.log(result)
-    if(!result)  
-    this.optionsOpstini.push({value: this.opstina, text: this.opstina})
-    this.selectedOpstina = this.opstina 
-    this.unfilteredItems = this.items;
+    if (result.length === 0)
+      this.optionsOpstini.push({ value: this.opstina, text: this.opstina })
+    this.selectedOpstina = this.opstina
+    this.unfilteredItems = this.items
   },
   methods: {
     async editDate(date) {
@@ -307,7 +309,7 @@ created() {
       this.dataDo = null
       if (newVal != null) {
         this.items = this.unfilteredItems
-        this.min1 = newVal
+        this.min1 = new Date(newVal)
         this.items = this.items.filter(function (item) {
           let arrDate = item.Датум_на_договор.split('.')
           let swtVal = arrDate[0]
@@ -333,7 +335,7 @@ created() {
       this.dataOd = null
       if (newVal != null) {
         this.items = this.unfilteredItems
-        this.max = newVal
+        this.max = new Date(newVal)
         this.items = this.items.filter(function (item) {
           let arrDate = item.Датум_на_договор.split('.')
           let swtVal = arrDate[0]

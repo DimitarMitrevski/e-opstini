@@ -518,11 +518,6 @@ export default {
       // this.isDeletingImage = false;
     },
     onSubmit1() {
-      // console.log(this.answer)
-      // Object.keys(this.answer).forEach(
-      //   (e) => (this.ocena += this.answer[e])
-      //   // console.log(`key=${e}  value=${this.answer[e]}`)
-      // )
       let numAnswers = 0
       for (const [key, value] of Object.entries(this.answer)) {
         if (value) {
@@ -546,14 +541,12 @@ export default {
     },
   },
   async created() {
-    if (
-      localStorage.getItem('opstina') !== null ||
-      localStorage.getItem('opstina') !== null
-    ) {
+    if (localStorage.getItem('opstina') !== null && this.opstina === '') {
       const opsO = JSON.parse(localStorage.getItem('opstina'))
+      console.log(opsO, 'line 546')
       this.opstina = 'Општина ' + opsO.name
       this.opstinaObj = await opsO
-    } else if (!this.opstina) {
+    } else if (this.opstina === '') {
       const municipalities = this.$store.state.municipality.municipalities
       var result = municipalities.filter(
         (municipality) => municipality.name === 'Битола'
@@ -561,12 +554,8 @@ export default {
       this.opstina = 'Општина Битола'
       this.opstinaObj = result[0]
     }
-    // this.message = 'updated'
-    // console.log(this.$el.textContent) // 'not updated'
-    // await this.$nextTick()
-    // console.log(this.$el.textContent) // 'updated'
   },
-  async asyncData({ store }) {
+  asyncData({ store }) {
     if (
       store.state.municipality.municipality == null ||
       store.state.municipality.municipality == ''
@@ -574,7 +563,7 @@ export default {
       return
     else {
       let arr = store.state.municipality.municipality
-      // console.log(arr.name)
+      console.log(arr, 'line 52')
       if (arr.length > 10) {
         let municipalities = store.state.municipality.municipalities
         var result = municipalities.filter(
@@ -586,10 +575,11 @@ export default {
           opstinaObj: result[0],
         }
       } else {
-        return {
-          opstina: 'Општина ' + arr.name,
-          opstinaObj: arr,
-        }
+        // return {
+        //   opstina: 'Општина ' + arr.name,
+        //   opstinaObj: arr,
+        //   opstinaSelected: arr.name,
+        // }
       }
     }
     // await store.getters.getMunicipality;

@@ -32,9 +32,9 @@
           <template #button-content>
             <em>User</em>
           </template>
-          <b-dropdown-item v-if="isLoggedIn" href="/users/profile"
-            >Profile</b-dropdown-item
-          >
+          <b-dropdown-item v-if="isLoggedIn" href="/users/profile">{{
+            userInfo.imePrezime
+          }}</b-dropdown-item>
           <b-dropdown-item @click="odjavi">Sign Out</b-dropdown-item>
         </b-nav-item-dropdown>
       </b-navbar-nav>
