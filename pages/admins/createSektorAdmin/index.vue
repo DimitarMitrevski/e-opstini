@@ -230,6 +230,7 @@ Password must - Have at least 8 characters - Contain characters from at least 3 
         password: this.form.password,
       }
       this.$store.dispatch('admins/createAdmin', forma)
+      this.$router.push('/sectorAdmins')
       this.onReset(evt)
     },
 
