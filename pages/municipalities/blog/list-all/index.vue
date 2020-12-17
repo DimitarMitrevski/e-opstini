@@ -5,6 +5,7 @@
             <b-card 
                 v-for="(blog, k) in currentBlogs" :key="k"
                 :title="blog.title">
+                <small class="text-secondary">Објава од: Општина {{opstina.name}}</small>
                 <b-card-text>
                     {{blog.body}}
                 </b-card-text>
@@ -30,18 +31,30 @@ export default {
             pageSize: 4,
             currentPage: 0,
             noPages: 0,
+            opstini: [],
+            opstina: {}
         }
     },
     async asyncData({store}){
         await store.dispatch('blogs/getAllBlogPosts');
         let arr = store.state.blogs.blogPosts;
+        let ops = store.state.municipality.municipalities;
+        let opsT = store.state.municipality.municipality;
         return { 
             allBlogs: arr,
-            noPages: Math.ceil(arr.length/4)
+            noPages: Math.ceil(arr.length/4),
+            opstini: ops,
+            opstina: opsT
         }
     },
-    created() {
+    async created() {
         this.currentBlogs=this.allBlogs.slice(0, this.pageSize);
+        if(!localStorage.getItem('opstina') || !this.$store.state.municipality.municipality) {
+            const idx = Math.floor(Math.random() * this.opstini.length);
+            this.opstina = this.opstini[idx]
+            this.$store.dispatch('municipality/setSelectedMunicipality', this.opstina);
+            localStorage.setItem('opstina', JSON.stringify(this.opstina))
+        }
     },
     methods: {
         next(){

@@ -49,34 +49,17 @@ export default {
         return {
             post: {},
             filetype: '',
-            opstina: {},
-            opstini: []
+            opstina: {}
         }
     },
-    // mounted() {
-    //     console.log(this.post);
-    //     firebase.storage().refFromURL(this.post.files[0]).getMetadata()
-    //     .then(function(metadata) {
-    //         console.log(metadata)
-    //     })
-    //     .catch(e => { console.error(e) })
-    // },
     async asyncData({ params, store }){
         await store.dispatch('blogs/getSinglePost', params.id);
         let arr = store.state.blogs.blogPost;
-
-        let ops = store.state.municipality.municipalities;
-
+        let ops = store.state.municipality.municipality;
         return { 
             post: arr,
-            opstini: ops
+            opstina: ops
         }
-    },
-    created() {
-        // console.log(this.opstini)
-        const idx = Math.floor(Math.random() * this.opstini.length);
-        this.opstina = this.opstini[idx]
-        this.$store.dispatch('municipality/setSelectedMunicipality', this.opstina);
     },
     methods: {
         randomDate(start, end) {

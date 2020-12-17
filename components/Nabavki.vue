@@ -80,9 +80,9 @@
           ></b-pagination>
         </b-col>
         <b-col cols="3">
-          <a hrerf="#!">
+          <a target="_blank" href="/files/excel.xlsx">
             <span
-              style="margin: 10px; text-decoration:underline; cursor:pointer;"
+              style="margin: 10px; text-decoration:underline; cursor:pointer; color: #fff"
             >Превземи ја табелата</span>
             <b-icon icon="table" variant="light" scale="2"></b-icon>
           </a>
