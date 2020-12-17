@@ -54,7 +54,7 @@
                 </p>
                 <img v-if="komentar.fileType == 'image'" :src="komentar.file" alt="">
                 <p v-if="komentar.file && komentar.fileType !== 'image'" class="files">
-                    Поставени датотеки: <a target="_blank" :href="komentar.file">{{komentar.fileName}}</a>
+                    Поставенa датотекa: <a target="_blank" :href="komentar.file">{{komentar.fileName}}</a>
                 </p>
             </b-media>
         </ul>

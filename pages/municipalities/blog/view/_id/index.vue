@@ -10,6 +10,9 @@
             </div>
         </header>
         <body>
+            <div class="banner">
+                <h2>Планирање буџет за Општина {{opstina.name}}</h2>
+            </div>
             <!-- <img v-if="post.files.length" :src="post.files[0]" style="max-height: 300px" alt=""> -->
             <p class="blog-post">
                 {{post.body}}
@@ -118,5 +121,29 @@ export default {
 }
 .blog .b-icon {
     font-size: 2rem;
+}
+.blog .banner {
+    background-image: url(https://images.pexels.com/photos/4386373/pexels-photo-4386373.jpeg);
+    background-size: cover;
+    background-position: center;
+    height: 190px;
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    position: relative;
+}
+.blog .banner::before {
+    content: '';
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background: rgb(23 162 184 / 60%);
+    left: 0;
+    top: 0;
+}
+.blog .banner h2 {
+    z-index: 2;
+    color: #ffffff;
+    position: relative;
 }
 </style>
