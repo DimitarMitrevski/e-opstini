@@ -1,7 +1,14 @@
 <template>
     <div class="mun-list">
         <b-list-group>
-            <b-list-group-item v-for="(i, k) in data" :key="k" @click="emitSelected(i.name)" button>{{i.name}}</b-list-group-item>
+            <b-list-group-item 
+            class="d-flex justify-content-between align-items-center"
+            v-for="(i, k) in data" :key="k" @click="emitSelected(i.name)" 
+            
+            button>
+                {{i.name}} 
+                <b-badge variant="info" :class="i.color" pill>{{i.indeks}}</b-badge>
+            </b-list-group-item>
         </b-list-group>
     </div>
 </template>

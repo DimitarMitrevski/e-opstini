@@ -373,6 +373,7 @@
                 ></b-icon
                 >Јавни набавки
               </h3>
+              <b-button variant="outline-light" style="text-decoration: none" class="d-block m-auto" target="_blank" href="/files/budzet_stip.pdf">Симни ги јавните набавки <b-icon icon="download"></b-icon></b-button>
             </div>
           </b-col>
           <b-col></b-col>

@@ -4,14 +4,14 @@
         <header class="header">
             <h2>{{post.title}}</h2>
             <div class="author">
-                <a href="#!" class="mun">Општина {{opstina.name}}</a>
+                <nuxt-link to="/municipality" class="mun">Општина {{opstina.name}}</nuxt-link>
                 <img v-if="opstina.grbUrl" style="height: 50px; width: 50px" :src="opstina.grbUrl" alt="">
                 <img v-else style="height: 50px; width: 50px" src="https://republika.mk/wp-content/uploads/2019/12/grb-opshtina-tuzi-sonce-kutlesh-476x640.jpg" alt="">
             </div>
         </header>
         <body>
             <div class="banner">
-                <h2>Планирање буџет за Општина {{opstina.name}}</h2>
+                <h2 class="w-100">Планирање буџет за Општина {{opstina.name}} <span class="float-right">2021 година</span></h2>
             </div>
             <!-- <img v-if="post.files.length" :src="post.files[0]" style="max-height: 300px" alt=""> -->
             <p class="blog-post">
@@ -23,11 +23,13 @@
             <h4>Документи на предлогот</h4>
             <b-list-group horizontal="md">
                 <b-list-group-item
+                 href="/files/budzet_stip.pdf"
+                 target="_blank"
                  v-for="(i,k) in 6" :key="k"
-                 href="#" class="flex-column align-items-start">
+                 class="flex-column align-items-start">
                     <div class="d-flex w-100 justify-content-between">
-                        <p>{{filetype}}</p>
-                        <small class="text-secondary">12/03/2021</small>
+                        <p>budzet.pdf</p>
+                        <small class="text-secondary">12/03</small>
                     </div>
                     <p class="text-center">
                         <b-icon icon="file-earmark-spreadsheet-fill"></b-icon>
@@ -74,6 +76,7 @@ export default {
         // console.log(this.opstini)
         const idx = Math.floor(Math.random() * this.opstini.length);
         this.opstina = this.opstini[idx]
+        this.$store.dispatch('municipality/setSelectedMunicipality', this.opstina);
     },
     methods: {
         randomDate(start, end) {
@@ -126,7 +129,7 @@ export default {
     background-image: url(https://images.pexels.com/photos/4386373/pexels-photo-4386373.jpeg);
     background-size: cover;
     background-position: center;
-    height: 190px;
+    height: 150px;
     display: flex;
     align-items: center;
     padding: 1rem;

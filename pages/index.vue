@@ -589,6 +589,17 @@ export default {
     }
   },
   created(){
+    this.opstini = this.opstini.map(o=>{
+      o.transparentnost = Math.floor(Math.random() * 10) + 1;
+      o.otcetnost = Math.floor(Math.random() * 10) + 1;
+      o.pravednost = Math.floor(Math.random() * 10) + 1;
+      o.vklucenost = Math.floor(Math.random() * 10) + 1;
+      o.indeks = (o.pravednost+o.vklucenost+o.transparentnost+o.otcetnost)/4;
+      o.color = (o.indeks >=8) ? 'bg-success' : ((o.indeks >= 7) ? 'bg-info' : ((o.indeks >= 4) ? 'bg-warning' : 'bg-danger'));
+      return o;
+    });
+    this.opstini = this.opstini.sort((a, b) => parseFloat(a.indeks) - parseFloat(b.indeks)).reverse();
+    console.log(this.opstini);
     this.$store.dispatch('municipality/setAllMunicipalities', this.opstini);
   },
   // async mounted(){
