@@ -103,6 +103,7 @@ export default {
         'municipality/setSelectedMunicipality',
         this.userDatas.city
       )
+      this.$router.push('/municipality')
       let municipalities = this.$store.state.municipality.municipalities
       var result = municipalities.filter(
         (municipality) =>
