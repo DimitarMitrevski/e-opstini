@@ -46,7 +46,7 @@
                 Креирај нов админ на сектор
               </b-button>
               <b-button
-                href="/admins/createSektorAdmin"
+                href="/municipality"
                 v-b-modal.modal-lg
                 variant="light"
                 block
