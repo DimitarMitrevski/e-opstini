@@ -294,7 +294,7 @@
         <b-row>
           <b-col></b-col>
           <b-col>
-            <div style="min-height: 100%; padding: 20px; text-align: center">
+            <div style="min-height: 100%; text-align: center">
               <h3 class="nabavki" @click="scroll">
                 <b-icon icon="book" variant="light" style="margin-right: 10px"></b-icon>Јавни набавки
               </h3>
@@ -312,7 +312,7 @@
 
 <script>
 import firebase from '~/plugins/firebase'
-
+import firebaseApp from 'firebase/app'
 export default {
   head() {
     return {}

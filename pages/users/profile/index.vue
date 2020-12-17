@@ -109,9 +109,15 @@ export default {
           municipality.name ===
           this.userDatas.city.substr(8, this.userDatas.city.length)
       )
+      // let arr1 = []
+      // arr1[0] = result
       localStorage.setItem('opstina', JSON.stringify(result[0]))
       console.log(localStorage.getItem('opstina'), 'line 114')
-      this.$router.push('/municipality')
+      // return {
+      //   opstina: arr,
+      //   opstinaObj: result[0],
+      // }
+      // this.$router.push('/municipality')
     },
     scroll() {
       this.modal = !this.modal
