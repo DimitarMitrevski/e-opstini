@@ -384,7 +384,7 @@
               <b-button
                 variant="outline-light"
                 style="text-decoration: none"
-                class="d-block m-auto"
+                class="d-block mx-auto mb-3"
                 target="_blank"
                 href="/files/budzet_stip.pdf"
                 >Симни ги јавните набавки <b-icon icon="download"></b-icon
