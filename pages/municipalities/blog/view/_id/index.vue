@@ -119,12 +119,64 @@
 <script>
 import firebase from '~/plugins/firebase'
 export default {
+<<<<<<< Updated upstream
     data() {
         return {
             post: {},
             filetype: '',
             opstina: {}
         }
+=======
+  data() {
+    return {
+      post: {},
+      filetype: '',
+      opstina: {},
+      opstini: [],
+    }
+  },
+  // mounted() {
+  //     console.log(this.post);
+  //     firebase.storage().refFromURL(this.post.files[0]).getMetadata()
+  //     .then(function(metadata) {
+  //         console.log(metadata)
+  //     })
+  //     .catch(e => { console.error(e) })
+  // },
+  async asyncData({ params, store }) {
+    await store.dispatch('blogs/getSinglePost', params.id)
+    let arr = store.state.blogs.blogPost
+
+    let ops = store.state.municipality.municipalities
+
+    return {
+      post: arr,
+      opstini: ops,
+    }
+  },
+
+  async created() {
+    const idx = Math.floor(Math.random() * this.opstini.length)
+    this.opstina = this.opstini[idx]
+
+    this.$store.dispatch('municipality/setAllMunicipalities', this.opstini)
+    await firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        this.callStore(user.uid)
+      } else {
+      }
+    })
+  },
+
+  methods: {
+    async callStore(uid) {
+      console.log(uid, 'log form 89')
+      await this.$store.dispatch('users/getUser', uid)
+      const userDatas = await this.$store.state.users.userInfo
+      this.userID = uid
+      this.userDatas = userDatas
+      console.log(this.userDatas)
+>>>>>>> Stashed changes
     },
     async asyncData({ params, store }){
         await store.dispatch('blogs/getSinglePost', params.id);

@@ -44,7 +44,6 @@ export default {
       if (user) {
         this.callStore(user.uid)
       } else {
-        this.$router.push('/singIn')
       }
     })
   },

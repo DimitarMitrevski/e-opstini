@@ -755,14 +755,13 @@ export default {
     this.opstini = this.opstini
       .sort((a, b) => parseFloat(a.indeks) - parseFloat(b.indeks))
       .reverse()
-    console.log(this.opstini)
+
     this.$store.dispatch('municipality/setAllMunicipalities', this.opstini)
     this.$store.dispatch('municipality/setAllMunicipalities', this.opstini)
     await firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         this.callStore(user.uid)
       } else {
-        this.$router.push('/singIn')
       }
     })
   },

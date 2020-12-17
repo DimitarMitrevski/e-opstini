@@ -7,9 +7,7 @@
       <b-navbar-nav>
         <b-nav-item to="/municipalities/blog/list-all">Блог</b-nav-item>
       </b-navbar-nav>
-      <b-navbar-nav>
-        <b-nav-item @click="dataClick">Data</b-nav-item>
-      </b-navbar-nav>
+      <b-navbar-nav> </b-navbar-nav>
 
       <!-- Right aligned nav items -->
       <b-navbar-nav class="ml-auto">
@@ -30,21 +28,31 @@
             >Најави се како Супер Админ</b-dropdown-item
           >
         </b-nav-item-dropdown>
-        <b-nav-item-dropdown right>
-          <!-- Using 'button-content' slot -->
-          <template #button-content>
-            <em>{{ userDatas.imePrezime ? userDatas.imePrezime : '' }}</em>
-          </template>
-          <b-dropdown-item v-if="isLoggedIn1" href="/users/profile"
-            >Профил</b-dropdown-item
-          >
-          <b-dropdown-item v-else href="/singIn">Најави Се </b-dropdown-item>
+        <div v-show="$store.state.users.isLoggedIn == true">
+          <b-nav-item-dropdown right>
+            <!-- Using 'button-content' slot -->
+            <template #button-content>
+              <em>{{ userDatas.imePrezime ? userDatas.imePrezime : '' }}</em>
+            </template>
 
-          <b-dropdown-item v-if="isLoggedIn1" @click="odjavi"
-            >Одјави се</b-dropdown-item
-          >
-          <b-dropdown-item v-else @click="odjavi"></b-dropdown-item>
-        </b-nav-item-dropdown>
+            <b-dropdown-item
+              v-if="$store.state.users.isLoggedIn == true"
+              href="/users/profile"
+              >Профил</b-dropdown-item
+            >
+
+            <b-dropdown-item
+              v-if="$store.state.users.isLoggedIn == true"
+              @click="odjavi"
+              >Одјави се</b-dropdown-item
+            >
+            <b-dropdown-item
+              v-if="$store.state.users.isLoggedIn == false"
+              href="/singIn"
+              >Најави Се
+            </b-dropdown-item>
+          </b-nav-item-dropdown>
+        </div>
       </b-navbar-nav>
     </b-collapse>
   </b-navbar>
@@ -59,9 +67,7 @@ export default {
       userr: {},
     }
   },
-  mounted() {
-    this.isLoggedIn1 = this.$store.state.users.isLoggedIn
-  },
+
   computed: {
     userDatas() {
       this.$store.dispatch('users/getUser1')
@@ -70,12 +76,6 @@ export default {
     },
   },
   methods: {
-    dataClick() {
-      // this.userDatas.then(function (result) {
-      //   console.log(result, 'res')
-      // })
-      console.log(this.userDatas.imePrezime)
-    },
     odjavi() {
       this.$store.dispatch('admins/signOutGlobal')
     },

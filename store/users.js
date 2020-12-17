@@ -59,7 +59,6 @@ export const actions = {
   async getUser1(state) {
     var user = firebase.auth().currentUser
     if (user) {
-      state.commit(loggedIn, true)
       var uid = user.uid
       await db
         .collection('Users')
@@ -68,10 +67,12 @@ export const actions = {
         .then(function (doc) {
           if (doc.exists) {
             state.commit('getInfo', doc.data())
+            state.commit('loggedIn', true)
           }
         })
+    } else {
+      state.commit('loggedIn', false)
     }
-    state.commit(loggedIn, false)
   },
 }
 

@@ -239,6 +239,7 @@ Password must - Have at least 8 characters - Contain characters from at least 3 
       }
       this.$store.dispatch('users/signUp', forma).then(() => {
         this.$router.push('/users/profile')
+        //document.location.href = '/users/profile'
       })
       this.onReset(evt)
     },

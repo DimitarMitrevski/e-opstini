@@ -206,7 +206,6 @@ Password must - Have at least 8 characters - Contain characters from at least 3 
       if (user) {
         this.callStore(user.uid)
       } else {
-        this.$router.push('/singIn')
       }
     })
   },

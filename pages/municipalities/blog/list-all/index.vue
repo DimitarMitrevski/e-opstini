@@ -59,6 +59,7 @@ export default {
           }
         })
 
+<<<<<<< Updated upstream
         if(!localStorage.getItem('opstina') || !this.$store.state.municipality.municipality) {
             const idx = Math.floor(Math.random() * this.opstini.length);
             this.opstina = this.opstini[idx]
@@ -68,6 +69,19 @@ export default {
     },
     methods: {
       async callStore(uid) {
+=======
+  async created() {
+    this.currentBlogs = this.allBlogs.slice(0, this.pageSize)
+    await firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        this.callStore(user.uid)
+      } else {
+      }
+    })
+  },
+  methods: {
+    async callStore(uid) {
+>>>>>>> Stashed changes
       console.log(uid, 'log form 89')
       await this.$store.dispatch('users/getUser', uid)
       const userDatas = await this.$store.state.users.userInfo

@@ -15,28 +15,4 @@ body {
   font-family: 'DyslexicFZF', sans-serif;
 }
 </style>
-<script>
-import firebase from 'firebase/app'
-export default {
-  data() {
-    return {
-      userDatas: {},
-    }
-  },
-  computed: {
-    userDatas() {
-      this.$store.dispatch('users/getUser1')
-      const userDatas = this.$store.state.users.userInfo
-      return userDatas
-    },
-  },
-
-  // asyncData({ store }) {
-  //   store.dispatch('users/getUser1')
-  //   const userDatas1 = store.state.users.userInfo
-  //   return {
-  //     userDatas: userDatas1,
-  //   }
-  // },
-}
-</script>
+<script></script>

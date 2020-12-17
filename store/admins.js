@@ -5,6 +5,7 @@ require('firebase/auth')
 export const state = () => ({
   adminInfo: {},
   sectorAdminInfo: {},
+  isLoggedIn: false,
 })
 
 export const mutations = {
@@ -13,6 +14,9 @@ export const mutations = {
   },
   setCurrentSectorAdmin(state, payload) {
     state.sectorAdminInfo = payload
+  },
+  loggedIn(state, payload) {
+    state.isLoggedIn = payload
   },
 }
 
@@ -83,6 +87,7 @@ export const actions = {
       .signOut()
       .then(() => {
         this.$router.push('/')
+        state.commit('loggedIn', false)
       })
   },
 }
