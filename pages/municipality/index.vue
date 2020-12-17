@@ -1,19 +1,9 @@
 <template>
   <div class="bg-all">
     <!-- Send Message Modal -->
-    <b-modal
-      id="modal-lg"
-      size="xl"
-      centered
-      :title="`Испрати порака до ${opstina}`"
-    >
+    <b-modal id="modal-lg" size="xl" centered :title="`Испрати порака до ${opstina}`">
       <b-form @submit="onSubmit" v-if="show">
-        <b-form-group
-          id="input-group-1"
-          label="Email адреса:"
-          label-for="input-1"
-          description
-        >
+        <b-form-group id="input-group-1" label="Email адреса:" label-for="input-1" description>
           <b-form-input
             id="input-1"
             v-model="form.email"
@@ -23,11 +13,7 @@
           ></b-form-input>
         </b-form-group>
 
-        <b-form-group
-          id="input-group-2"
-          label="Вашето Име и Презиме:"
-          label-for="input-2"
-        >
+        <b-form-group id="input-group-2" label="Вашето Име и Презиме:" label-for="input-2">
           <b-form-input
             id="input-2"
             v-model="form.name"
@@ -35,11 +21,7 @@
             required
           ></b-form-input>
         </b-form-group>
-        <b-form-group
-          id="input-group-3"
-          label="Предмет на пораката:"
-          label-for="input-3"
-        >
+        <b-form-group id="input-group-3" label="Предмет на пораката:" label-for="input-3">
           <b-form-input
             id="input-3"
             v-model="form.subject"
@@ -53,10 +35,7 @@
           label="Изберете сектор кој е одговорен:"
           label-for="input-5"
         >
-          <b-form-select
-            v-model="form.selected"
-            :options="options"
-          ></b-form-select>
+          <b-form-select v-model="form.selected" :options="options"></b-form-select>
         </b-form-group>
         <b-form-group id="input-group-4" label="Порака" label-for="input-4">
           <b-form-textarea
@@ -68,11 +47,7 @@
             required
           ></b-form-textarea>
         </b-form-group>
-        <b-form-group
-          id="input-group-6"
-          label="Додадете датотека:"
-          label-for="input-6"
-        >
+        <b-form-group id="input-group-6" label="Додадете датотека:" label-for="input-6">
           <b-form-file
             v-model="file1"
             :state="Boolean(file1)"
@@ -88,9 +63,9 @@
             :aria-describedby="ariaDescribedby"
             required
           >
-            <b-form-checkbox value="Се согласувам со условите за користење."
-              >Се согласувам со условите за користење.</b-form-checkbox
-            >
+            <b-form-checkbox
+              value="Се согласувам со условите за користење."
+            >Се согласувам со условите за користење.</b-form-checkbox>
           </b-form-checkbox-group>
         </b-form-group>
 
@@ -110,50 +85,26 @@
     <b-modal id="modal-lg-1" size="lg" centered :title="`Оцени ја ${opstina}`">
       <b-form @submit.prevent="onSubmit1">
         <div v-if="next === 0">
-          <b-form-group
-            label="Дали општината е транспарентна?"
-            label-for="select"
-          >
-            <b-form-select
-              v-model="answer.answer10"
-              :options="answers"
-            ></b-form-select>
+          <b-form-group label="Дали општината е транспарентна?" label-for="select">
+            <b-form-select v-model="answer.answer10" :options="answers"></b-form-select>
           </b-form-group>
-          <b-form-group
-            label="Дали општината дава доволно отчетност?"
-            label-for="select"
-          >
-            <b-form-select
-              v-model="answer.answer1"
-              :options="answers"
-            ></b-form-select>
+          <b-form-group label="Дали општината дава доволно отчетност?" label-for="select">
+            <b-form-select v-model="answer.answer1" :options="answers"></b-form-select>
           </b-form-group>
           <b-form-group
             label="Дали општината има добра комуникација со граѓаните?"
             label-for="select"
           >
-            <b-form-select
-              v-model="answer.answer2"
-              :options="answers"
-            ></b-form-select>
+            <b-form-select v-model="answer.answer2" :options="answers"></b-form-select>
           </b-form-group>
           <b-form-group
             label="Дали граѓаните се вклучени во планирање на буџетот?"
             label-for="select"
           >
-            <b-form-select
-              v-model="answer.answer3"
-              :options="answers"
-            ></b-form-select>
+            <b-form-select v-model="answer.answer3" :options="answers"></b-form-select>
           </b-form-group>
-          <b-form-group
-            label="Дали општината се грижи за буџетот?"
-            label-for="select"
-          >
-            <b-form-select
-              v-model="answer.answer4"
-              :options="answers"
-            ></b-form-select>
+          <b-form-group label="Дали општината се грижи за буџетот?" label-for="select">
+            <b-form-select v-model="answer.answer4" :options="answers"></b-form-select>
           </b-form-group>
         </div>
         <div v-if="next === 1">
@@ -161,46 +112,28 @@
             label="Дали општината го користи буџетот за тоа што е наменет?"
             label-for="select"
           >
-            <b-form-select
-              v-model="answer.answer5"
-              :options="answers"
-            ></b-form-select>
+            <b-form-select v-model="answer.answer5" :options="answers"></b-form-select>
           </b-form-group>
           <b-form-group
             label="Дали буџетот е доволен за активностите на општината?"
             label-for="select"
           >
-            <b-form-select
-              v-model="answer.answer6"
-              :options="answers"
-            ></b-form-select>
+            <b-form-select v-model="answer.answer6" :options="answers"></b-form-select>
           </b-form-group>
           <b-form-group
             label="Дали општината има добра комуникација со граѓаните?"
             label-for="select"
           >
-            <b-form-select
-              v-model="answer.answer7"
-              :options="answers"
-            ></b-form-select>
+            <b-form-select v-model="answer.answer7" :options="answers"></b-form-select>
           </b-form-group>
           <b-form-group
             label="Дали граѓаните се вклучени во планирање на буџетот?"
             label-for="select"
           >
-            <b-form-select
-              v-model="answer.answer8"
-              :options="answers"
-            ></b-form-select>
+            <b-form-select v-model="answer.answer8" :options="answers"></b-form-select>
           </b-form-group>
-          <b-form-group
-            label="Дали општината се грижи за буџетот?"
-            label-for="select"
-          >
-            <b-form-select
-              v-model="answer.answer9"
-              :options="answers"
-            ></b-form-select>
+          <b-form-group label="Дали општината се грижи за буџетот?" label-for="select">
+            <b-form-select v-model="answer.answer9" :options="answers"></b-form-select>
           </b-form-group>
         </div>
         <div v-if="next === 2">
@@ -210,14 +143,11 @@
             </b-row>
             <b-row>
               <b-col class="text-center">
-                <b-button variant="primary" @click.prevent="onSubmit1()"
-                  >Да, поднеси</b-button
-                >
+                <b-button variant="primary" @click.prevent="onSubmit1()">Да, поднеси</b-button>
                 <b-button
                   variant="danger"
                   @click="$bvModal.hide('modal-lg-1'), (next = 0)"
-                  >Не, откажи</b-button
-                >
+                >Не, откажи</b-button>
               </b-col>
             </b-row>
           </b-container>
@@ -227,14 +157,10 @@
         <b-container>
           <b-row>
             <b-col>
-              <b-button variant="secondary" @click="next--" v-if="next !== 0"
-                >&laquo; Претходно</b-button
-              >
+              <b-button variant="secondary" @click="next--" v-if="next !== 0">&laquo; Претходно</b-button>
             </b-col>
             <b-col class="text-right">
-              <b-button v-if="next !== 2" variant="dark" @click="next++">
-                Следно &raquo;
-              </b-button>
+              <b-button v-if="next !== 2" variant="dark" @click="next++">Следно &raquo;</b-button>
             </b-col>
           </b-row>
         </b-container>
@@ -252,9 +178,7 @@
             <b-col cols="8">
               <h2>
                 {{ opstina }}
-                <b-badge variant="success" v-if="ocena != 0"
-                  >Оцена: {{ ocena }}</b-badge
-                >
+                <b-badge variant="success" v-if="ocena != 0">Оцена: {{ ocena }}</b-badge>
               </h2>
               <p>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis
@@ -269,7 +193,9 @@
         <b-col cols="4">
           <div class="side-banner">
             <b-icon icon="info-circle-fill" scale="3" variant="light"></b-icon>
-            <p style="margin-left: 21px"><br />Новости за Општината</p>
+            <p style="margin-left: 21px">
+              <br />Новости за Општината
+            </p>
           </div>
           <br />
           <b-button v-b-modal.modal-lg variant="primary" block>
@@ -281,12 +207,12 @@
       <br />
       <div class="bg">
         <b-row>
-          <b-col> <b-icon icon="geo-alt"></b-icon>бул. 1-ви Мај бр.61 </b-col>
+          <b-col>
+            <b-icon icon="geo-alt"></b-icon>бул. 1-ви Мај бр.61
+          </b-col>
           <b-col>
             <b-icon icon="globe2"></b-icon>
-            <a href="https://bitola.gov.mk" target="_blank"
-              >https://bitola.gov.mk</a
-            >
+            <a href="https://bitola.gov.mk" target="_blank">https://bitola.gov.mk</a>
           </b-col>
           <b-col>
             <b-button v-b-modal.modal-lg-1 variant="outline-light" block>
@@ -296,8 +222,12 @@
         </b-row>
         <br />
         <b-row>
-          <b-col> <b-icon icon="telephone"></b-icon>+389 47 208 442 </b-col>
-          <b-col> <b-icon icon="printer"></b-icon>+389 47 208 307 </b-col>
+          <b-col>
+            <b-icon icon="telephone"></b-icon>+389 47 208 442
+          </b-col>
+          <b-col>
+            <b-icon icon="printer"></b-icon>+389 47 208 307
+          </b-col>
           <b-col>
             <b-icon icon="envelope"></b-icon>
             <a href="mailto://bitola@t-home.mk">bitola@t-home.mk</a>
@@ -366,12 +296,7 @@
           <b-col>
             <div style="min-height: 100%; padding: 20px; text-align: center">
               <h3 class="nabavki" @click="scroll">
-                <b-icon
-                  icon="book"
-                  variant="light"
-                  style="margin-right: 10px"
-                ></b-icon
-                >Јавни набавки
+                <b-icon icon="book" variant="light" style="margin-right: 10px"></b-icon>Јавни набавки
               </h3>
             </div>
           </b-col>
