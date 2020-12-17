@@ -24,7 +24,9 @@ export const actions = {
         db.collection('SuperAdmins').doc(usr.uid).set(payload)
         usr
           .sendEmailVerification()
-          .then(function () {})
+          .then(function () {
+            document.location.href = '/superAdmins/profile'
+          })
           .catch(function (error) {})
       })
   },

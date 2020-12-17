@@ -35,7 +35,13 @@
                 </b-form-group> -->
 
         <b-button size="lg" type="submit" variant="primary">Објави</b-button>
-        <b-button size="lg" type="reset" variant="danger">Откажи</b-button>
+        <b-button
+          size="lg"
+          type="reset"
+          variant="danger"
+          @click="$router.go(-1)"
+          >Откажи</b-button
+        >
       </b-form>
     </div>
   </b-container>

@@ -98,12 +98,12 @@ export default {
   },
 
   methods: {
-    showNovosti() {
-      this.$store.dispatch(
+    async showNovosti() {
+      await this.$store.dispatch(
         'municipality/setSelectedMunicipality',
         this.userDatas.city
       )
-      let municipalities = this.$store.state.municipality.municipalities
+      let municipalities = await this.$store.state.municipality.municipalities
       var result = municipalities.filter(
         (municipality) =>
           municipality.name ===
