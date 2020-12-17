@@ -63,7 +63,7 @@ export default {
         .then((user) => {
           var usr = firebase.auth().currentUser
           console.log(usr.uid)
-          this.$router.push('/users/profile')
+          document.location.href = '/users/profile'
         })
         .catch((error) => {
           var errorCode = error.code
